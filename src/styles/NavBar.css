@@ -1,4 +1,27 @@
 
+nav {
+  background: blue;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-top-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  height: 8vh;
+}
 .nav-title {
-  color: blue;
+  color: white;
+  
+}
+.nav-search-button {
+  height: 60%;
+}
+
+.nav-bottom-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  height: 8vh;
 }
