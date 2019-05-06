@@ -4,30 +4,45 @@ import axios from 'axios';
 
 import NavBar from './components/NavBar.js';
 import Hero from './components/Hero.js';
+import Main from './components/Main.js';
 
 class App extends Component {
   state = {
-    data: ""
+    data: "",
+    showHero: true,
+    showSearchNav: false,
   }
 
   retrieveData = (event) => {
     event.preventDefault();
     axios.get('/data')
       .then(response => {
-        console.log('daCo: ', response.data)
         this.setState({
           data: response.data.data
         })
       })
   }
 
+  toggleSearchNav = (event) => {
+    event.preventDefault();
+    this.setState( prevState => ({
+      showSearchNav: !prevState.showSearchNav
+    }))
+  }
+
   render() {
     return (
       <div class="nyde-wrapper">
         <NavBar 
-          retrieveData={this.retrieveData}
+          toggleSearchNav={this.toggleSearchNav}
+          showSearchNav={this.state.showSearchNav}
         />
-        <Hero />
+        {
+          this.state.showHero
+            ? <Hero retrieveData={this.retrieveData} />
+            : <Main data={this.state.data} />
+        }
+
         {
           this.state.data 
             ? (
