@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 // Controllers
 const { dataController } = require('./controllers/dataController.js');
+const { searchController } = require('./controllers/searchController.js');
 
 // //Authentication
 // const bcrypt = require('bcrypt-nodejs');
@@ -43,6 +44,7 @@ app.use(express.static('public'));
 
 //added routers for each endpoint which can be found in the routes folder
 app.use('/data', dataController);
+app.use('/search', searchController);
 // app.use('/specialties', specialtyRouter);
 // app.use('/insurance', insuranceRouter);
 
