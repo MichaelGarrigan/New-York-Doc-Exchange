@@ -9,7 +9,7 @@ import Main from './components/Main.js';
 class App extends Component {
   state = {
     data: "",
-    showHero: true,
+    showHero: false,
     showSearchNav: false,
   }
 
@@ -41,13 +41,6 @@ class App extends Component {
           this.state.showHero
             ? <Hero retrieveData={this.retrieveData} />
             : <Main data={this.state.data} />
-        }
-
-        {
-          this.state.data 
-            ? (
-              this.state.data.map(item => (<p key={item.npi}>{JSON.stringify(item)}</p>))
-            ) : ""
         }
       </div>
     )
