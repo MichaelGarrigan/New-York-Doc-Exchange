@@ -1,0 +1,20 @@
+
+.search-wrapper {
+  align-items: center;
+  background-color: #355894;
+  background-image: url("/padded-light.png");
+  display: flex;
+  justify-content: center;
+  height: 90vh;
+  width: 100vw;
+}
+
+.search-form {
+  align-items: center;
+  background: rgb(195, 215, 223);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: 80vh;
+  justify-content: center;
+}
