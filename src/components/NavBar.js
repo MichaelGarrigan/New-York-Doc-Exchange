@@ -1,5 +1,4 @@
 import React from 'react';
-import SearchBar from './SearchBar.js';
 
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -16,29 +15,30 @@ const styles = theme => ({
   }
 });
 
+
 const NavBar = props => {
   const { classes } = props;
   
   return (
-    <nav>
-      <div class="nav-top-row">
-        <div class="nav-title">New York Doc Exchange</div>
-        <Fab 
-          aria-label="Search"
-          color="secondary" 
-          className={classes.fab} 
-          onClick={event => {props.toggleSearchNav(event)}}
-          variant="extended"
-        >
-          <SearchIcon />
-          Search
-        </Fab>
+    <nav className="navbar-wrapper">
+
+      <div class="nav-title"
+        onClick={ event => props.switchMainView(event, 'hero') }
+      >
+        New York Doc Exchange
       </div>
-      {
-        props.showSearchNav
-          ? <SearchBar />
-          : ""
-      }
+
+      <Fab 
+        aria-label="Search"
+        color="secondary" 
+        className={classes.fab} 
+        onClick={ event => props.switchMainView(event, 'search') }
+        variant="extended"
+      >
+        <SearchIcon />
+        Search
+      </Fab>
+    
     </nav>
   );
 };

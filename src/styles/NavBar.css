@@ -1,27 +1,17 @@
 
-nav {
-  background: blue;
+.navbar-wrapper {
+  align-items: center;
+  background: rgb(16, 16, 36);
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+  height: 10vh;
+  width: 100vw;
 }
 
-.nav-top-row {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  height: 8vh;
-}
 .nav-title {
   color: white;
-  
-}
-.nav-search-button {
-  height: 60%;
-}
-
-.nav-bottom-row {
-  align-items: center;
-  display: flex;
-  justify-content: space-evenly;
-  height: 8vh;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 4vw;
+  margin: 0;
 }
