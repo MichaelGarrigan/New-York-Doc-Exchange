@@ -1,0 +1,19 @@
+
+.main-wrapper {
+  background: green;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  height: 90vh;
+}
+
+.sidebar-wrapper {
+  background: rgb(182, 182, 192);
+  grid-column: 1 / 5;
+  width: 100%;
+}
+
+.map-wrapper {
+  background: rgb(201, 201, 204);
+  grid-column: 5 / 13;
+  width: 100%;
+}
