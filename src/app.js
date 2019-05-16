@@ -15,7 +15,9 @@ const threeComponents = {
 
 class App extends Component {
   state = {
-    mainView: 'hero'
+    mainView: 'hero',
+    doctorData: [],
+    lat_long: []
   }
 
   retrieveData = (event) => {
