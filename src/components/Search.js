@@ -35,7 +35,7 @@ class Search extends Component {
     event.preventDefault();
 
     // exchange user location input for lat/long coords
-    let coords = {};
+    let coords = [];
     axios.get('/location', { params: { location: this.state.searchInputs.location } })
       .then( response => {
         coords = response.data;
@@ -52,8 +52,11 @@ class Search extends Component {
             .then( response => {
               console.log('/search response: ', response.data);
               // save doctor data to state
+              this.props.setDoctorData(response.data);
               // save lat_long to state
+              this.props.setLat_Long(coords)
               // set the view to main
+              this.props.switchMainView('main');
             })
             .catch( err => console.log(err));
 
