@@ -23,7 +23,7 @@ const NavBar = props => {
     <nav className="navbar-wrapper">
 
       <div class="nav-title"
-        onClick={ event => props.switchMainView(event, 'hero') }
+        onClick={ () => props.switchMainView('hero') }
       >
         New York Doc Exchange
       </div>
@@ -32,7 +32,7 @@ const NavBar = props => {
         aria-label="Search"
         color="secondary" 
         className={classes.fab} 
-        onClick={ event => props.switchMainView(event, 'search') }
+        onClick={ () => props.switchMainView('search') }
         variant="extended"
       >
         <SearchIcon />
