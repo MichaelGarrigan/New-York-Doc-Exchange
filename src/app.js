@@ -7,38 +7,50 @@ import Hero from './components/Hero.js';
 import Search from './components/Search.js';
 import Main from './components/Main.js';
 
-const threeComponents = {
-  hero: <Hero />,
-  search: <Search />,
-  main: <Main />
-}
 
 class App extends Component {
   state = {
     mainView: 'hero',
-    doctorData: [],
-    lat_long: []
+    doctorData: '',
+    lat_long: [40.730610, -73.935242]
   }
 
-  retrieveData = (event) => {
-    event.preventDefault();
-    axios.get('/data')
-      .then(response => {
-        this.setState({
-          data: response.data.data
-        })
-      })
+  setDoctorData = data => {
+    this.setState({
+      doctorData: data
+    });
   }
 
-  switchMainView = (event, view) => {
+  setLat_Long = coords => {
+    this.setState({
+      lat_long: coords
+    });
+  }
+
+  switchMainView = view => {
     console.log('view: ', view);
-    event.preventDefault();
+    
     this.setState({
       mainView: view
     });
   }
 
   render() {
+    console.log('doc Data in app.js: ', this.state.doctorData)
+    const threeComponents = {
+      hero: <Hero />,
+      search: 
+        <Search 
+          setDoctorData={this.setDoctorData}
+          setLat_Long={this.setLat_Long}
+          switchMainView={this.switchMainView}
+        />,
+      main: 
+        <Main
+          doctorData={this.state.doctorData} 
+          lat_long={this.state.lat_long}
+        />
+    }
     return (
       <div class="nyde-wrapper">
         <NavBar 
