@@ -12,20 +12,6 @@ import NavigationIcon from '@material-ui/icons/Navigation';
 
 import '../styles/Search.css';
 
-const styles = theme => ({
-  
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  dense: {
-    marginTop: 16,
-  },
-  menu: {
-    width: 200,
-  },
-});
-
 class Search extends Component {
   state = {
     searchInputs: {
@@ -53,43 +39,42 @@ class Search extends Component {
     axios.get('/location', { params: { location: this.state.searchInputs.location } })
       .then( response => {
         coords = response.data;
-        console.log('back with coords: ', coords);
+        console.log('coords: ', coords)
+        if (coords) {
+          axios.get(
+            '/search', 
+            { params: { 
+              ...this.state.searchInputs,
+              location: coords
+              } 
+            }
+            )
+            .then( response => {
+              console.log('/search response: ', response.data);
+              // save doctor data to state
+              // save lat_long to state
+              // set the view to main
+            })
+            .catch( err => console.log(err));
+
+            // reset state back to empty strings
+            this.setState({
+              searchInputs: {
+                symptoms: '',
+                specialties: '',
+                insurance: '',
+                language: '',
+                location: ''
+              }
+            });
+        } else {
+          // coords is null 
+          // handle by showing user an error message of no location found
+          // and they should retry entering the location
+        }
       })
       .catch( err => console.log(err));
       
-    axios.get(
-      '/search', 
-      { params: { ...this.state.searchInputs } }
-      )
-      .then( response => {
-        console.log('submit response: ', response)
-      })
-      .catch( err => console.log(err));
-
-    // reset state back to empty strings
-    this.setState({
-      searchInputs: {
-        symptoms: '',
-        specialties: '',
-        insurance: '',
-        language: '',
-        location: ''
-      }
-    })
-  }
-
-  defaultSearchInputs = event => {
-    event.preventDefault();
-    axios.get(
-      '/default', 
-      { params: { 
-        // default attributes
-       } }
-      )
-      .then( response => {
-        console.log('submit response: ', response)
-      })
-      .catch( err => console.log(err));
   }
 
   render() {
@@ -100,8 +85,6 @@ class Search extends Component {
         <form className="search-form noValidate autoComplete='off' ">
         
           <TextField
-            // id="outlined-input-location"
-            // className={classNames(classes.textField, classes.margin, classes.legend)}
             label="location"
             margin="normal"
             onChange={this.handleInputChange('location')}
@@ -110,8 +93,6 @@ class Search extends Component {
           />
 
           <TextField
-            // id="outlined-input-symptoms"
-            // className={classNames(classes.textField, classes.margin, classes.legend)}
             label="symptoms"
             margin="normal"
             onChange={this.handleInputChange('symptoms')}
@@ -120,8 +101,6 @@ class Search extends Component {
           />
 
           <TextField
-            // id="outlined-input-location"
-            // className={classNames(classes.textField, classes.margin, classes.legend)}
             label="specialties"
             margin="normal"
             onChange={this.handleInputChange('specialties')}
@@ -130,9 +109,6 @@ class Search extends Component {
           />
 
           <TextField
-            // id="outlined-with-placeholder"
-            // className={classes.textField}
-            // className={classNames(classes.textField, classes.margin, classes.legend)}
             label="insurance"
             margin="normal"
             onChange={this.handleInputChange('insurance')}
@@ -141,8 +117,6 @@ class Search extends Component {
           />
 
           <TextField
-            // id="outlined-input-location"
-            // className={classNames(classes.textField, classes.margin, classes.legend)}
             label="language"
             margin="normal"
             onChange={this.handleInputChange('language')}
@@ -161,18 +135,6 @@ class Search extends Component {
             <NavigationIcon className={classes.extendedIcon} />
             Apply Search
           </Fab>
-
-          {/* <Fab
-            variant="extended"
-            size="medium"
-            onClick={event => this.defaultSearchInputs(event)}
-            color="secondary"
-            aria-label="Add"
-            className={classes.margin}
-          >
-            <NavigationIcon className={classes.extendedIcon} />
-            Default Search
-          </Fab> */}
 
         </form>
       </div>
