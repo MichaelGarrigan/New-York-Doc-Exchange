@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   render() {
-    console.log('doc Data in app.js: ', this.state.doctorData)
+    
     const threeComponents = {
       hero: <Hero />,
       search: 

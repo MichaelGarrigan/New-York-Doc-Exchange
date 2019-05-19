@@ -5,7 +5,6 @@ import SideBar from './SideBar.js';
 import GoogleMapReact from 'google-map-react';
 import { API_KEY_GEO } from '../server/helpers/config.js';
 
-
 import '../styles/Main.css';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
