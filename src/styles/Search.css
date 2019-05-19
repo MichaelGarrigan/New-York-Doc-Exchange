@@ -1,8 +1,8 @@
 
 .search-wrapper {
   align-items: center;
-  background-color: #355894;
-  background-image: url("/padded-light.png");
+  background-color: #000c1f;
+  background-image: url("/cubes.png");
   display: flex;
   justify-content: center;
   height: 90vh;
