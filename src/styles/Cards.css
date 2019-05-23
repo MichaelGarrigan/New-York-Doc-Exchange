@@ -1,17 +1,17 @@
 
 .card-wrapper {
+  background: whitesmoke;
   border-radius: 1rem;
   box-shadow: 5px 10px 10px #535353;
   margin: 20px 0;
-  width: 80%;
+  width: 90%;
 }
 
 /* Card Upper Section */
 .doctor-upper-section {
-  background: rgb(99,247,243);
-  background: linear-gradient(320deg, rgba(99,247,243,0.9) 0%, rgba(99,204,247,0.9) 50%, rgba(52,83,250,0.9) 100%);
-  border-radius: 1rem 1rem 0 0;
-  box-shadow: 5px 10px 10px #535353;
+  background: #122036;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 5px #535353;
 }
 
 .doctor-name {
@@ -30,18 +30,19 @@
 
 .doctor-avatar {
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   border-radius: 50%;
-  height: 7vw;
-  width: 7vw;
+  height: 8vw;
+  width: 8vw;
 }
 
 .doctor-show-more-button {
-  background: rgb(206, 126, 34);
-  border-radius: 0.5rem;
-  color: rgb(54, 54, 54);
-  font-size: 2vw;
-  padding: .5rem;
+  background: rgb(182, 24, 79);
+  border: none;
+  border-radius: 3rem;
+  color: whitesmoke;
+  font-size: 1.4vw;
+  padding: 1rem;
 }
 
 /* Card Lower Section */
@@ -49,13 +50,14 @@
   background: whitesmoke;
   border-radius: 0 0 1rem 1rem;
   color: rgb(54, 54, 54);
-  font-size: 1.5vw;
+  font-size: 2vw;
   text-align: center;
 }
 
 .doctor-lower-categories  {
   border-bottom: 1px solid rgb(206, 126, 34);
-  padding: 1rem auto;
+  margin: 0 auto;
+  padding: 1rem 0;
   width: 90%;
 }
 
@@ -65,9 +67,4 @@
 
 .doctor-p {
   margin: 5px 0;
-}
-
-.doctor-insurance-details {
-  border: 0.5px solid gray;
-  padding: 0.5rem;
 }
