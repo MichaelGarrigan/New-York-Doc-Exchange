@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Insurances from './Insurances.js';
 import '../styles/Cards.css';
 
 class Cards extends Component {
@@ -46,13 +47,12 @@ class Cards extends Component {
             ? ( 
                 <div className="card-show-more">
 
-                  <div className="doctor-lower-categories">
-                    <h2 className="doctor-h2">General Info</h2>
+                  <div className="doctor-lower-categories">  
                     <p className="doctor-p">
-                      {`Languages: ${data.profile.languages[0].name}`}
+                      National Provider Identifier
                     </p>
                     <p className="doctor-p">
-                      {`National Provider Identifier ${data.npi}`}
+                      {data.npi}
                     </p>
                   </div>
 
@@ -88,6 +88,9 @@ class Cards extends Component {
                                     : "No Phone Number Provided"
                                 }
                                 <p className="doctor-p">
+                                  {`Languages: ${loc.languages[0].name}`}
+                                </p>
+                                <p className="doctor-p">
                                   {
                                     loc.accepts_new_patients
                                       ? 'Accepting New Patients !!!'
@@ -97,32 +100,13 @@ class Cards extends Component {
                               </div>
                             );
                           })
-                        : 'No Insurance Accepted'
+                        : 'No Locations Provided'
                     }
                   </div>
 
                   <div className="doctor-lower-categories">
-                    <h2 className="doctor-h2">Insurance</h2>
-                    {
-                      data.insurances.length > 0
-                        ? 
-                          data.insurances.map(doctor => {
-                            return (
-                              <div className="doctor-insurance-details">
-                                <p className="doctor-p">
-                                  {`Provider: ${doctor.insurance_provider.name}`}
-                                </p>
-                                <p className="doctor-p">
-                                  {`Plan: ${doctor.insurance_plan.name}`}
-                                </p>
-                                <p className="doctor-p">
-                                  {`Category: ${doctor.insurance_plan.category[0]}`}
-                                </p>
-                              </div>
-                            );
-                          })
-                        : 'No Insurance Accepted'
-                    }
+                    <h2 className="doctor-h2">Insurance(s)</h2>
+                    <Insurances insurances={data.insurances} />
                   </div>
                 </div>
               )
