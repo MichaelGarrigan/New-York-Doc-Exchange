@@ -7,8 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Fab from '@material-ui/core/Fab';
-import NavigationIcon from '@material-ui/icons/Navigation';
 
 import '../styles/Search.css';
 
@@ -126,18 +124,13 @@ class Search extends Component {
             value={this.state.searchInputs.language}
             variant="filled"
           />
-        
-          <Fab
-            variant="extended"
-            size="medium"
+
+          <button
+            className="search-apply-button"
             onClick={event => this.submitSearchInputs(event)}
-            color="primary"
-            aria-label="Add"
-            className={classes.margin}
           >
-            <NavigationIcon className={classes.extendedIcon} />
-            Apply Search
-          </Fab>
+            <span>Apply Search</span>
+          </button>
 
         </form>
       </div>
