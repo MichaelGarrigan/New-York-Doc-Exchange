@@ -1,12 +1,13 @@
 
 .navbar-wrapper {
   align-items: center;
-  background: rgb(16, 16, 36);
+  background: #000c1f;
   display: flex;
   justify-content: space-around;
   height: 10vh;
   width: 100vw;
 }
+
 
 .nav-title {
   color: white;
@@ -14,4 +15,28 @@
   font-family: 'Roboto', sans-serif;
   font-size: 4vw;
   margin: 0;
+}
+
+.navbar-search-button {
+  align-items: center;
+  background: rgb(248, 0, 87);
+  border: none;
+  border-radius: 3rem;
+  color: whitesmoke;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-search-flex {
+  align-items: center;
+  display: flex;
+  font-size: 1.2rem;
+  padding: 0.4rem 1rem;
+}
+
+.icon-search {
+  fill: whitesmoke;
+  height: 2rem;
+  width: 2rem;
 }
