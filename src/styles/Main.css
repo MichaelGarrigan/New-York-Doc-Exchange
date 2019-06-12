@@ -1,13 +1,6 @@
 
 .main-wrapper {
-  background: green;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   height: 90vh;
-}
-
-.map-wrapper {
-  background: rgb(201, 201, 204);
-  grid-column: 5 / 13;
-  width: 100%;
 }
