@@ -31,6 +31,8 @@ class Search extends Component {
 
   submitSearchInputs = event => {
     event.preventDefault();
+    // start spinner
+    this.props.switchMainView('spinner');
 
     // exchange user location input for lat/long coords
     let coords = [];
@@ -82,7 +84,7 @@ class Search extends Component {
     const { classes } = this.props;
     
     return (
-      <div class="search-wrapper">
+      <div className="search-wrapper">
         <form className="search-form noValidate autoComplete='off' ">
         
           <TextField
