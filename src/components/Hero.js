@@ -1,9 +1,11 @@
 import React from 'react';
+// import Spinner from './Spinner.js';
+// import '../styles/Spinner.css';
 
 const Hero = props => (
   <section>
-    <div class="hero-wrapper">Hero Page</div>
-    
+    {/* <Spinner /> */}
+    <div className="hero-wrapper">Hero Page</div>
   </section>
 );
 
