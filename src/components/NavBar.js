@@ -5,7 +5,7 @@ import '../styles/NavBar.css';
 const NavBar = props => (
     <nav className="navbar-wrapper">
 
-      <div class="nav-title"
+      <div className="nav-title"
         onClick={ () => props.switchMainView('hero') }
       >
         New York Doc Exchange
