@@ -1,12 +1,12 @@
+
 .map-wrapper {
   background: rgb(201, 201, 204);
   grid-column: 5 / 13;
+  height: 100;
   width: 100%;
 }
 
-.pin {
-  background: sandybrown;
-  border-radius: 50%;
-  height: 1rem;
-  width: 1rem;
+.map-google {
+  height: 100%;
 }
+

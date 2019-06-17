@@ -1,8 +1,7 @@
 
 .sidebar-wrapper {
   align-items: center;
-  background: #008a6e;
-  background-image: url("/clean-gray-paper.png");
+  background: #919daf;
   display: flex;
   flex-direction: column;
   grid-column: 1 / 5;
