@@ -17,7 +17,9 @@ class Cards extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="card-wrapper">
+      <div 
+        className={this.props.className}
+      >
 
         <div className="doctor-upper-section">
           <div className="doctor-name">
