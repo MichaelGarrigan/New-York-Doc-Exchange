@@ -1,34 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import NavBar from './components/NavBar.js';
 import Main from './components/Main.js';
+import Body from './components/Body.js';
 
 
-class App extends Component {
-  state = {
-    mainView: 'hero'
-  }
-
-  switchMainView = view => {
-    console.log('view: ', view);
-    
-    this.setState({ mainView: view });
-  }
-
-  render() {
-    return (
-      <div className="nyde-wrapper">
-        <NavBar 
-          switchMainView={this.switchMainView}
-        />
-        <Main 
-          mainView={this.state.mainView}
-          switchMainView={this.switchMainView}
-        />
-      </div>
-    )
-  }
-}
+const App = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={Main} />
+      <Route path="/search" component={Main} />
+      <Route path="/map" component={Body} />
+    </Switch>
+</BrowserRouter>
+);
 
 ReactDOM.render(<App />, document.getElementById('app'));
