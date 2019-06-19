@@ -1,43 +1,68 @@
-import React from 'react';
-import GoogleMapReact from 'google-map-react';
-import { API_KEY_GEO } from '../server/helpers/config.js';
+import React, { Component } from 'react';
+import { API_KEY_MAP } from '../server/helpers/config.js';
 
 import Pin from './Pin.js';
 import '../styles/Map.css';
 
-const AnyReactComponent = text => <div>{text}</div>;
+const loadScript = url => {
+  const firstScript = window.document.getElementsByTagName("script")[0];
+  const script = window.document.createElement("script");
+  script.src = url;
+  script.async = true;
+  script.defer = true;
+  firstScript.parentNode.insertBefore(script, firstScript);
+}
 
-const Map = props => {
-  return (
-    <div className="map-wrapper">
-      <div style={{ height: '100%', width: '100%' }}>
-        <GoogleMapReact 
-          bootstrapURLKeys={{ key: API_KEY_GEO }}
-          defaultCenter={
-            {
-              lat: props.lat_long[0], 
-              lng: props.lat_long[1]
-            }
-          }
-          defaultZoom={11}
-        >
-          {
-            props.doctorData.map( data => {
-              <AnyReactComponent
-                className="pin"
-                key={data.npi}
-                lat={data.practices[0].lat}
-                lng={data.practices[0].lon}
-                text={data.profile.first_name}
-              />
-            })
-          }
-        </GoogleMapReact>
+class Map extends Component {
+
+  componentDidMount() {
+    this.renderMap();
+  }
+
+  renderMap = () => {
+    loadScript(`https://maps.googleapis.com/maps/api/js?key=${API_KEY_MAP}&callback=initMap`);
+    window.initMap = this.initMap;
+  }
+
+  initMap = () => {
+    let map = new window.google.maps.Map(
+        document.getElementById('map-google'), 
+        { 
+          center: {
+            lat: this.props.lat_long[0], 
+            lng: this.props.lat_long[1]
+          },
+          zoom: 12
+        }
+    );
+
+    // generate array of markers
+    this.props.doctorData.map( (data, index) => {
+      let marker = new window.google.maps.Marker({
+        key: data.npi,
+        index: index,
+        title: data.profile.slug,
+        animation: window.google.maps.Animation.DROP,
+        value: index,
+        map: map,
+        position: {
+          lat: data.practices[0].lat,
+          lng: data.practices[0].lon
+        }
+      });
+      marker.addListener('click', () => this.props.handleDocClick(marker.index))
+      return marker;
+    })
+    
+  }
+
+  render () {
+    return (
+      <div className="map-wrapper">
+        <div id="map-google"></div>
       </div>
-    </div>
-  )
-};
+    )
+  }
+}
 
 export default Map;
-
-// Objects are not valid as a React child (found: object with keys {className, lat, lng, text, $hover, $getDimensions, $dimensionKey, $geoService, $onMouseAllow, $prerender}).
