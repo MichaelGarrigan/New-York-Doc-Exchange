@@ -9,11 +9,15 @@ const Body = props => {
   return (
     <main className="body-wrapper">
 
-      <SideBar doctorData={props.doctorData} />
+      <SideBar 
+        doctorData={props.doctorData}
+        clickedDoctor={props.clickedDoctor}
+      />
 
       <Map 
         doctorData={props.doctorData} 
         lat_long={props.lat_long}
+        handleDocClick={props.handleDocClick}
       />
     </main>
   )
