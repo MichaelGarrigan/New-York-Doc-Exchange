@@ -1,12 +1,7 @@
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import classNames from 'classnames';
-
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 import '../styles/Search.css';
 
@@ -87,53 +82,55 @@ class Search extends Component {
       <div className="search-wrapper">
         <form className="search-form noValidate autoComplete='off' ">
         
-          <TextField
-            label="location"
-            margin="normal"
-            onChange={this.handleInputChange('location')}
-            value={this.state.searchInputs.location}
-            variant="filled"
-          />
+          <label>
+            Location
+            <input
+              onChange={this.handleInputChange('location')}
+              value={this.state.searchInputs.location}
+            />
+          </label>
 
-          <TextField
-            label="symptoms"
-            margin="normal"
-            onChange={this.handleInputChange('symptoms')}
-            value={this.state.searchInputs.symptoms}
-            variant="filled"
-          />
+          <label>
+            Symptoms
+            <input
+              onChange={this.handleInputChange('symptoms')}
+              value={this.state.searchInputs.symptoms}
+            />
+           </label>
 
-          <TextField
-            label="specialties"
-            margin="normal"
-            onChange={this.handleInputChange('specialties')}
-            value={this.state.searchInputs.specialties}
-            variant="filled"
-          />
+          <label>
+            Specialties
+            <input
+              onChange={this.handleInputChange('specialties')}
+              value={this.state.searchInputs.specialties}
+            />
+          </label>
 
-          <TextField
-            label="insurance"
-            margin="normal"
-            onChange={this.handleInputChange('insurance')}
-            value={this.state.searchInputs.insurance}
-            variant="filled"
-          />
+          <label>
+            Insurance
+            <input
+              onChange={this.handleInputChange('insurance')}
+              value={this.state.searchInputs.insurance}
+            />
+           </label>
 
-          <TextField
-            label="language"
-            margin="normal"
-            onChange={this.handleInputChange('language')}
-            value={this.state.searchInputs.language}
-            variant="filled"
-          />
+           <label>
+              Language
+              <input
+                onChange={this.handleInputChange('language')}
+                value={this.state.searchInputs.language}
+              />
+           </label>
 
-          <button
-            className="search-apply-button"
-            onClick={event => this.submitSearchInputs(event)}
-          >
-            <span>Apply Search</span>
-          </button>
-
+          <Link to="/map">
+            <button
+              className="search-apply-button"
+              onClick={event => this.submitSearchInputs(event)}
+            >
+              <span>Apply Search</span>
+            </button>
+          </Link>
+          
         </form>
       </div>
     )
@@ -141,4 +138,4 @@ class Search extends Component {
 }
 
 //export default Search;
-export default withStyles({})(Search);
+export default Search;
