@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { API_KEY_GEO } = require('../helpers/config.js');
+const { API_KEY_MAP } = require('../helpers/config.js');
 
 /*********** About Google Geocoding API ******************
 
@@ -31,7 +31,7 @@ const formatUserStringLocation = searchString => {
 module.exports = {
   locationController: (req, res) => {
     const formatted = formatUserStringLocation(req.query.location);
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${API_KEY_GEO}&address=`;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${API_KEY_MAP}&address=`;
 
     axios.get(`${url}${formatted}`)
     .then( response => {
