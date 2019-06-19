@@ -1,22 +1,77 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
-import SideBar from './SideBar.js';
-import Map from './Map.js';
-import '../styles/Main.css';
+import Body from './Body.js';
+import Hero from './Hero.js';
+import NavBar from './NavBar.js';
+import Search from './Search.js';
+import Spinner from './Spinner.js';
 
-const Main = props => {
+class Main extends Component {
+  state = {
+    mainView: 'hero',
 
-  return (
-    <main className="main-wrapper">
-      <SideBar doctorData={props.doctorData} />
+    doctorData: '',
+    lat_long: [40.730610, -73.935242],
+    clickedDoctor: ''
+  }
 
-      <Map 
-        doctorData={props.doctorData} 
-        lat_long={props.lat_long}
-      />
-    </main>
-  );
+  switchMainView = view => {
+    console.log('view: ', view);
+    
+    this.setState({ mainView: view });
+  }
+
+  setDoctorData = data => {
+    this.setState({
+      doctorData: data
+    });
+  }
+
+  setLat_Long = coords => {
+    this.setState({
+      lat_long: coords
+    });
+  }
+
+  handleDocClick = index => {
+    console.log('idx: ', index)
+    console.log('idx type: ', typeof index)
+    this.setState({
+      clickedDoctor: index
+    });
+  }
+
+  render() {
+    
+    const threeComponents = {
+      hero: <Hero />,
+      spinner: <Spinner />,
+      search: 
+        <Search 
+          setDoctorData={this.setDoctorData}
+          setLat_Long={this.setLat_Long}
+          switchMainView={this.switchMainView}
+        />,
+      main: 
+        <Body
+          mainView={this.state.mainView}
+          switchMainView={this.switchMainView}
+          doctorData={this.state.doctorData} 
+          lat_long={this.state.lat_long}
+          handleDocClick={this.handleDocClick}
+          clickedDoctor={this.state.clickedDoctor}
+        />
+    }
+
+    return (
+      <div className="nyde-wrapper">
+        <NavBar 
+          switchMainView={this.switchMainView}
+        />
+        { threeComponents[this.state.mainView] }
+      </div>
+    )
+  }
 }
 
 export default Main;
