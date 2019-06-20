@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <svg
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
+    id="hero-middle-svg"
+    version="1.1"
+    viewBox="0 0 264.58333 211.66667"
+  >
+    <g transform="translate(0,-85.333326)">
+      <path
+        d="M 1.1339286,296.62201 0,112.16964 C 0.37797619,94.782738 263.82738,97.050588 264.96131,86.089278 c -0.37798,20.032742 0,210.532732 0,210.532732 z"
+        style="fill: #f9f9f9;"
+      />
+    </g>
+  </svg>
