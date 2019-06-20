@@ -7,6 +7,14 @@
   width: 90%;
 }
 
+.card-wrapper-clicked {
+  background: whitesmoke;
+  border-radius: 1rem;
+  box-shadow: 5px 10px 10px #a3da0c;
+  margin: 20px 0;
+  width: 90%;
+}
+
 /* Card Upper Section */
 .doctor-upper-section {
   background: #122036;
