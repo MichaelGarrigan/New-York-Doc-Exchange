@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { API_KEY_MAP } from '../server/helpers/config.js';
 
-import Pin from './Pin.js';
 import '../styles/Map.css';
 
 const loadScript = url => {
