@@ -34,8 +34,6 @@ class Main extends Component {
   }
 
   handleDocClick = index => {
-    console.log('idx: ', index)
-    console.log('idx type: ', typeof index)
     this.setState({
       clickedDoctor: index
     });
