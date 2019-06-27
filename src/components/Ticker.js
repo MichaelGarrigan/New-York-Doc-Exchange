@@ -2,13 +2,18 @@
 import React from 'react';
 import '../styles/Ticker.less';
 
-const Ticker = () => (
-  <div className="ticker-wrap">
-    <div className="ticker">
-      <div className="ticker__item">Letterpress chambray brunch.</div>
-      <div className="ticker__item">Vice mlkshk crucifix beard chillwave meditation hoodie asymmetrical Helvetica.</div>
-      <div className="ticker__item">Ugh PBR&B kale chips Echo Park.</div>
-      <div className="ticker__item">Gluten-free mumblecore chambray mixtape food truck. </div>
+const Ticker = ({ tickerData }) => (
+  <div className={`ticker-wrap ${tickerData.speedName}`}>
+    <div className="ticker" style={{animationDuration: tickerData.speed}}>
+      {
+        tickerData.items.map( item => (
+          <div 
+            key={item.key}
+            className="ticker__item"
+            style={{color: item.color}}
+          >{item.text}</div>
+        ))
+      }
     </div>
 </div>
 )
