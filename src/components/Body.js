@@ -5,6 +5,7 @@ import Map from './Map.js';
 
 import '../styles/Body.css';
 
+
 const Body = props => {
   return (
     <main className="body-wrapper">

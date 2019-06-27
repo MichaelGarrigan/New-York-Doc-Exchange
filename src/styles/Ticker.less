@@ -1,6 +1,11 @@
 
 * { box-sizing: border-box; }
 
+@font-face {
+  font-family: 'TickerFont';
+  src: url('/RideFader.ttf')
+}
+
 @duration: 40s;
 
 @-webkit-keyframes ticker {
@@ -28,6 +33,15 @@
     transform: translate3d(-100%, 0, 0);
   }
 }
+.fast-ticker {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.slow-ticker {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+}
 
 .ticker-wrap {
   
@@ -38,36 +52,37 @@
   right: 0;
   width: 100%;
   overflow: hidden;
-  height: 4rem;
+  height: 100%;
   background-color: rgba(#000, 0.9); 
-  padding-left: 100%;
+  padding-left: 30%;
   box-sizing: content-box;
 
   .ticker {
 
     display: inline-block;
-    height: 4rem;
-    line-height: 4rem;  
+    height: 100%;
+    // line-height: 5vw;  
     white-space: nowrap;
-    padding-right: 100%;
+    padding-right: -70%;
     box-sizing: content-box;
 
-    -webkit-animation-iteration-count: infinite; 
-            animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-            animation-timing-function: linear;
-   -webkit-animation-name: ticker;
-           animation-name: ticker;
-    -webkit-animation-duration: @duration;
-            animation-duration: @duration;
+  //   -webkit-animation-iteration-count: infinite; 
+  //           animation-iteration-count: infinite;
+  //   -webkit-animation-timing-function: linear;
+  //           animation-timing-function: linear;
+  //  -webkit-animation-name: ticker;
+  //          animation-name: ticker;
+    // -webkit-animation-duration: @duration;
+    //         animation-duration: @duration;
 
     &__item {
 
       display: inline-block;
 
       padding: 0 2rem;
-      font-size: 2rem;
-      color: white;   
+      font-family: 'TickerFont', Courier, monospace;
+      font-size: 5vw;
+      // color: white;   
 
     }
   }

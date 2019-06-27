@@ -1,11 +1,8 @@
 
 @import "variables.less";
 
-.hero-wrapper {
-  
-}
 // Upper Section Start
-.hero-upper {
+.upper {
   align-items: center;
   background: linear-gradient(@dkteal, @dkblue);
   display: flex;
@@ -13,53 +10,70 @@
   justify-content: center;
   width: 100vw;
 
-  .upper-flex-center {
-    height: 85%;
+  .upper-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 2fr);
+    grid-template-rows: repeat(4, 1fr);
+    height: 90%;
     width: 100%;
 
-    .upper-grid {
+    .upper-grid-ticker {
+      align-self: center;
+      background: @dkgray;
       display: grid;
-      grid-template-columns: repeat(5, 2fr);
-      grid-template-rows: repeat(3, 1fr);
+      grid-column: 1 / span 5;
+      grid-row: 2 / span 1;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, 1fr);
+      height: 90%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .upper-grid-icon-building {
+      align-self: center;
+      grid-column: 4 / span 2;
+      grid-row: 1 / span 3;
       height: 100%;
+      justify-self: center;
       width: 100%;
+      z-index: 10;
+    }
+      
+    .upper-grid-cta {
+      #mixin-button();
+      align-self: center;
+      background-image: linear-gradient(orangered, @orange);
+      grid-column: 1 / span 3;
+      grid-row: 3 / span 2;
+      justify-self: center;
 
-      .upper-grid-ticker {
-        align-self: center;
-        background: @dkgray;
-        display: grid;
-        grid-column: 1 / span 5;
-        grid-row: 2 / span 1;
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(2, 1fr);
+      .upper-grid-cta-wrapper {
+        align-items: center;
+        display: flex;
         height: 90%;
-        position: relative;
-      }
-
-      .upper-grid-icon-building {
-        align-self: center;
-        background: url('/svg/building-1.svg');
-        background-repeat: no-repeat;
-        background-size: contain;
-        grid-column: 4 / span 2;
-        grid-row: 1 / span 3;
-        height: 100%;
-        z-index: 10;
-      }
-
-      .upper-link {
-        grid-column: 1 / span 2;
-        grid-row: 3 / span 1;
-      }
-
-      .upper-grid-call-to-action {
+        width: 90%;
+      
+      .upper-grid-cta-input {
         #mixin-button();
-        align-self: center;
-        background: @orange;
-        font-size: 2vw;
+
+        align-items: center;
         
-        height: 70%;
-        justify-self: center;
+        display: flex;
+        font-size: 2.5rem;
+        
+        margin-right: .5rem;
+        padding: 1.5rem;
+      }
+
+        div {
+          .upper-grid-svg-search {
+            height: 5rem;
+            width: 5rem;
+            fill: @orange;
+            
+          }
+        }
       }
     }
   }
@@ -133,7 +147,7 @@
         color: @dkteal;
         font-size: 2vw;
         margin-top: 2vw;
-        
+        width: 85%;
       }
     }
   }
@@ -159,7 +173,7 @@
     justify-content: space-evenly;
 
     .lower-svg-chart-heart {
-      background: url('/svg/chart-heart.svg');
+      background: url('/svg/chart-heart-blue.svg');
       background-repeat: no-repeat;
       background-size: cover;
       height: 45vw;
