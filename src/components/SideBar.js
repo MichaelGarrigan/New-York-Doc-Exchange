@@ -6,20 +6,20 @@ import '../styles/SideBar.css';
 const SideBar = props => (
     <div className="sidebar-wrapper">
       {
-        props.clickedDoctor 
+        props.clickedDoc
           ? (
             <Cards
-              key={props.doctorData[props.clickedDoctor].npi}
-              data={props.doctorData[props.clickedDoctor]}
-              value={props.clickedDoctor}
+              key={props.docData[props.clickedDoc].npi}
+              data={props.docData[props.clickedDoc]}
+              value={props.clickedDoc}
               className="card-wrapper-clicked"
             />
           )
           : ''
       }
       {
-        props.doctorData
-          ? (props.doctorData.map( (doctor, index) => {
+        props.docData
+          ? (props.docData.map( (doctor, index) => {
               return (
                 <Cards
                   key={doctor.npi}
