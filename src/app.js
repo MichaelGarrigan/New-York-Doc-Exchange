@@ -14,6 +14,7 @@ const App = () => {
   const [docData, setDocData] = useState('');
   const [latLong, setLatLong] = useState([40.730610, -73.935242]);
   const [clickedDoc, setClickedDoc] = useState('');
+  const [spinner, setSpinner] = useState(true);
 
   return (
     <BrowserRouter>
@@ -23,7 +24,12 @@ const App = () => {
         <Switch>
           <Route exact path="/" render={
             () => (
-              <Main />
+              <Main 
+                setClickedDoc={setClickedDoc}
+                setDocData={setDocData}
+                setLatLong={setLatLong}
+                setSpinner={setSpinner}
+              />
             )} 
           />
 
@@ -38,13 +44,17 @@ const App = () => {
 
           <Route path="/map" render={
             () => (
-              <Body 
-                docData={docData}
-                clickedDoc={clickedDoc}
-                latLong={latLong}
+              spinner 
+                ? <Spinner />
+                : (
+                  <Body 
+                    docData={docData}
+                    clickedDoc={clickedDoc}
+                    latLong={latLong}
 
-                setClickedDoc={setClickedDoc}
-              />
+                    setClickedDoc={setClickedDoc}
+                  />
+                ) 
             )} 
           />
         </Switch>
