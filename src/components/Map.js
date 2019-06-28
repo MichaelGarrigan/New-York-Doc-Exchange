@@ -28,15 +28,15 @@ class Map extends Component {
         document.getElementById('map-google'), 
         { 
           center: {
-            lat: this.props.lat_long[0], 
-            lng: this.props.lat_long[1]
+            lat: this.props.latLong[0], 
+            lng: this.props.latLong[1]
           },
           zoom: 12
         }
     );
 
     // generate array of markers
-    this.props.doctorData.map( (data, index) => {
+    this.props.docData.map( (data, index) => {
       let marker = new window.google.maps.Marker({
         key: data.npi,
         index: index,
@@ -49,7 +49,7 @@ class Map extends Component {
           lng: data.practices[0].lon
         }
       });
-      marker.addListener('click', () => this.props.handleDocClick(marker.index))
+      marker.addListener('click', () => this.props.setClickedDoc(marker.index))
       return marker;
     })
     
