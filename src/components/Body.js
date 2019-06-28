@@ -11,14 +11,14 @@ const Body = props => {
     <main className="body-wrapper">
 
       <SideBar 
-        doctorData={props.doctorData}
-        clickedDoctor={props.clickedDoctor}
+        docData={props.docData}
+        clickedDoc={props.clickedDoc}
       />
 
       <Map 
-        doctorData={props.doctorData} 
-        lat_long={props.lat_long}
-        handleDocClick={props.handleDocClick}
+        docData={props.docData} 
+        latLong={props.latLong}
+        setClickedDoc={props.setClickedDoc}
       />
     </main>
   )
