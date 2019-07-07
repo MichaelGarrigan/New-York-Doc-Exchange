@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Body from './components/Body.js';
+import Footer from './components/Footer.js';
 import Main from './components/Main.js';
 import NavBar from './components/NavBar.js';
 import Search from './components/Search.js';
@@ -37,7 +38,9 @@ const App = () => {
             () => (
               <Search 
                 setClickedDoc={setClickedDoc}
+                setDocData={setDocData}
                 setLatLong={setLatLong}
+                setSpinner={setSpinner}
               />
             )} 
           />
@@ -58,6 +61,8 @@ const App = () => {
             )} 
           />
         </Switch>
+
+        <Footer />
 
       </div>
     </BrowserRouter>
