@@ -14,8 +14,15 @@ const loadScript = url => {
 
 class Map extends Component {
 
-  componentDidMount() {
-    this.renderMap();
+  componentDidMount() { this.renderMap(); }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.docData !== this.props.docData) {
+      this.renderMap();
+    }
+    if (prevProps.latLong !== this.props.latLong) {
+      this.renderMap();
+    }
   }
 
   renderMap = () => {
@@ -55,13 +62,14 @@ class Map extends Component {
     
   }
 
-  render () {
+  render() {
     return (
       <div className="map-wrapper">
         <div id="map-google"></div>
       </div>
     )
   }
+  
 }
 
 export default Map;
