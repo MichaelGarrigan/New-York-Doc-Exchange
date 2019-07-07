@@ -39,7 +39,8 @@ const consolidateInsurances = list => {
 const sortArray = list => {
 
   list.sort( (a, b) => {
-    console.log('TF: ', a.insurance_provider.name - b.insurance_provider.name )
+    console.log('A: ', a.insurance_provider.name);
+    console.log('B: ', b.insurance_provider.name);
     return a.insurance_provider.name - b.insurance_provider.name; 
   });
   
@@ -79,7 +80,7 @@ const Insurances = ({ insurances }) => {
            {
              item.insurance_plan.category.map( (cat, i) => {
               return (
-                <Fragment>
+                <Fragment key={i} >
                   <div 
                     className={`${cat === 'medical' ? 'medical-icon' : 'dental-icon'} icon${i}`}
                   ></div>
