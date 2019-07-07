@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import '../styles/Main.less';
 import Ticker from './Ticker.js';
@@ -12,6 +13,42 @@ import MagGlass from './svg/MagGlass.js';
 const Main = props => {
 
   const [zipCode, setZipCode] = useState('');
+
+  const submitZipCode = event => {
+
+    // exchange user location input for lat/long coords
+    let coords = [];
+    axios.get('/location', { params: { location: zipCode } })
+      .then( response => {
+        coords = response.data;
+        console.log('coords: ', coords)
+        if (coords) {
+          axios.get(
+            '/search', 
+            { params: { location: coords } }
+            )
+            .then( response => {
+              console.log('/search response: ', response.data);
+
+              // save to state
+              props.setDocData(response.data);
+              props.setLatLong(coords);
+            })
+            .catch( err => console.log(err));
+
+            setZipCode('');
+            // stop spinner
+            props.setSpinner(false);
+        } else {
+          // coords is null 
+          // handle by showing user an error message of no location found
+          // and they should retry entering the location
+        }
+      })
+      .catch( err => console.log(err));
+      
+  }
+
   
   return (
     <main>
@@ -38,11 +75,13 @@ const Main = props => {
                   type='number'
                   value={zipCode}
                 />
-                <div
-                  onClick={() => console.log('cta', zipCode)}
-                >
-                  <MagGlass className="upper-grid-svg-search" />
-                </ div>
+                <Link to="/map">
+                  <div
+                    onClick={ e => submitZipCode(e) }
+                  >
+                    <MagGlass className="upper-grid-svg-search" />
+                  </ div>
+                </Link>
               </div>
             </div>
             
