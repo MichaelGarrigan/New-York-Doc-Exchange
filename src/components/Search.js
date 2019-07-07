@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import '../styles/Search.css';
+import '../styles/Search.less';
 
 class Search extends Component {
   state = {
@@ -13,21 +13,23 @@ class Search extends Component {
       insurance: '',
       language: '',
       location: ''
-    }
+    },
+    showAdvancedOptions: false,
+    advancedOptions: []
   }
 
-  handleInputChange = category => event => {
-    this.setState({
+  handleInputChange = event => {
+    event.persist();
+    
+    this.setState( prevState => ({
       searchInputs: {
-        [category]: event.target.value
+        ...prevState.searchInputs,
+        [event.target.name]: event.target.value
       }
-    })
+    }));
   }
 
   submitSearchInputs = event => {
-    event.preventDefault();
-    // start spinner
-    this.props.switchMainView('spinner');
 
     // exchange user location input for lat/long coords
     let coords = [];
@@ -47,11 +49,11 @@ class Search extends Component {
             .then( response => {
               console.log('/search response: ', response.data);
               // save doctor data to state
-              this.props.setDoctorData(response.data);
+              this.props.setDocData(response.data);
               // save lat_long to state
-              this.props.setLat_Long(coords)
+              this.props.setLatLong(coords)
               // set the view to main
-              this.props.switchMainView('main');
+              this.props.setSpinner(false);
             })
             .catch( err => console.log(err));
 
@@ -61,7 +63,6 @@ class Search extends Component {
                 symptoms: '',
                 specialties: '',
                 insurance: '',
-                language: '',
                 location: ''
               }
             });
@@ -80,47 +81,56 @@ class Search extends Component {
     
     return (
       <div className="search-wrapper">
-        <form className="search-form noValidate autoComplete='off' ">
+
+        <form className="search-form">
         
-          <label>
-            Location
+          <div className="search-input-wrapper">
+            <p>Location</p>
             <input
-              onChange={this.handleInputChange('location')}
+              name="location"
+              onChange={this.handleInputChange}
+              placeholder="i.e. zip code, city, address"
+              type="text"
               value={this.state.searchInputs.location}
             />
-          </label>
+          </div>
 
-          <label>
-            Symptoms
-            <input
-              onChange={this.handleInputChange('symptoms')}
-              value={this.state.searchInputs.symptoms}
-            />
-           </label>
+          <div className="optional-input-wrapper">
 
-          <label>
-            Specialties
-            <input
-              onChange={this.handleInputChange('specialties')}
-              value={this.state.searchInputs.specialties}
-            />
-          </label>
-
-          <label>
-            Insurance
-            <input
-              onChange={this.handleInputChange('insurance')}
-              value={this.state.searchInputs.insurance}
-            />
-           </label>
-
-           <label>
-              Language
+            <div className="search-input-wrapper">
+              <p>Symptoms</p>
               <input
-                onChange={this.handleInputChange('language')}
-                value={this.state.searchInputs.language}
+                name="symptoms"
+                onChange={this.handleInputChange}
+                placeholder="type to filter options"
+                type="text"
+                value={this.state.searchInputs.symptoms}
               />
-           </label>
+            </div>
+
+            <div className="search-input-wrapper">
+              <p>Specialties</p>
+              <input
+                name="specialties"
+                onChange={this.handleInputChange}
+                placeholder="type to filter options"
+                type="text"
+                value={this.state.searchInputs.specialties}
+              />
+            </div>
+
+            <div className="search-input-wrapper">
+              <p>Insurance</p>
+              <input
+                name="insurance"
+                onChange={this.handleInputChange}
+                placeholder="type to filter options"
+                type="text"
+                value={this.state.searchInputs.insurance}
+              />
+            </div>
+
+          </div>
 
           <Link to="/map">
             <button
@@ -132,10 +142,28 @@ class Search extends Component {
           </Link>
           
         </form>
+
+        {
+          this.state.showAdvancedOptions
+            ? (
+              <div className="search-advanced-options">
+                {
+                  this.state.advancedOptions.map( item => (
+                    <div 
+                      className="advanced-option-item"
+                      key={item.uid}
+                    >
+                      {item.name}
+                    </div>
+                  ))
+                }
+              </div>
+            ) : ""
+        }
+        
       </div>
     )
   }
 }
 
-//export default Search;
 export default Search;
