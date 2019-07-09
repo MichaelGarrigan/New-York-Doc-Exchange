@@ -6,3 +6,7 @@ public/.DS_Store
 public/bundle.js
 
 src/server/helpers/config.js
+
+src/server/helpers/data/conditionsOriginal.js
+src/server/helpers/data/specialtiesOriginal.js
+src/server/helpers/data/insurancesOriginal.js
