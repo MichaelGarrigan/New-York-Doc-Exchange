@@ -1,5 +1,7 @@
 import React from 'react';
 
+import MedIcon from './svg/medical.js';
+import DenIcon from './svg/dental.js';
 import '../styles/Insurances.less';
 
 // alphabetically sort insurances (mutates 'list')
@@ -66,7 +68,7 @@ const Insurances = ({ insurances }) => {
   
   return (
     newList.map( item => (
-        <div className="insurance-wrapper" key={item}>
+        <div className="insurance-wrapper" key={item.name}>
           
           <div className="insurance-provider">
             {item.name}
@@ -76,8 +78,8 @@ const Insurances = ({ insurances }) => {
               <div className="insurance-plan-flex" key={plan.name}>
                 {
                   plan.category === 'medical'
-                    ? <div className="med-icon"></div>
-                    : <div className="den-icon"></div>
+                    ? <MedIcon />
+                    : <DenIcon />
                 }
                 <div className="insurance-plan-name">
                   {plan.name}
