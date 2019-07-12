@@ -3,11 +3,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import { condArray } from '../server/helpers/data/conditions.js';
-import { specArray } from '../server/helpers/data/specialties.js';
-import { insurArray } from '../server/helpers/data/insurances.js';
+import { symptomsArray } from '../server/helpers/data/symptoms.js';
+import { specialtiesArray } from '../server/helpers/data/specialties.js';
+import { insuranceArray } from '../server/helpers/data/insurances.js';
 
 import '../styles/Search.less';
+
+const optMap = {
+  symptoms: symptomsArray,
+  specialties: specialtiesArray,
+  insurance: insuranceArray
+};
 
 class Search extends Component {
   state = {
@@ -20,42 +26,93 @@ class Search extends Component {
     showAdvancedOptions: false,
     advancedOptionChosen: '',
     advancedOptions: {
-      symptoms: condArray,
-      specialties: specArray,
-      insurance: insurArray
+      symptoms: symptomsArray,
+      specialties: specialtiesArray,
+      insurance: insuranceArray
     }
   }
 
+  filterOptions = (array, str) => {
+    let re = new RegExp(`^${str}`, 'i');
+    
+    return array.filter( item => re.test(item) )
+  }
+
   handleInputChange = event => {
-    event.persist();
+    const name = event.target.name;
+    const value = event.target.value;
     
     this.setState( 
       prevState => ({
         searchInputs: {
           ...prevState.searchInputs,
-          [event.target.name]: event.target.value
+          [name]: value
+        }
+      }));
+  }
+
+  handleInputChangeAdvanced = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+    
+    this.setState( 
+      prevState => ({
+        searchInputs: {
+          ...prevState.searchInputs,
+          [name]: value
         }
       }), 
       () => {
-        console.log('here', this.state.searchInputs[event.target.name].length)
-        if (this.state.searchInputs[event.target.name].length > 0) {
-          this.setState({ showAdvancedOptions: true });
-          this.setState({ advancedOptionChosen: event.target.name });
-        } else { 
-          this.setState({ showAdvancedOptions: false }); 
-          this.setState({ advancedOptionChosen: '' });
+        if (this.state.searchInputs[name].length > 0) {
+          this.setState(prevState => ({ 
+            advancedOptions: {
+              ...prevState.advancedOptions,
+              [name]: this.filterOptions(optMap[name], this.state.searchInputs[name])
+            }
+          }));
+        } else {
+          this.setState({ 
+            advancedOptions: {
+              symptoms: symptomsArray,
+              specialties: specialtiesArray,
+              insurance: insuranceArray
+            }
+          });
         }
       }
     );
+  }
 
+  handleAdvancedOption = event => {
+    event.persist();
     
+    const name = event.target.attributes.name.nodeValue;
+    const option = event.target.attributes.option.nodeValue;
+    console.log(name, option);
+    
+    this.setState(prevState => ({ 
+      searchInputs: {
+        ...prevState.searchInputs,
+        [option] : name
+      }
+    }));
+  }
+
+  handleInputFocus = event => {
+    const name = event.target.name;
+    
+    this.setState({ 
+      showAdvancedOptions: true,
+      advancedOptionChosen: event.target.name
+    });
   }
 
   submitSearchInputs = event => {
 
     // exchange user location input for lat/long coords
     let coords = [];
-    axios.get('/location', { params: { location: this.state.searchInputs.location } })
+    let loc = this.state.searchInputs.location || 'New York, NY';
+    axios.get('/location', { params: { location: loc } })
       .then( response => {
         coords = response.data;
         console.log('coords: ', coords)
@@ -99,8 +156,6 @@ class Search extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    
     return (
       <div className="search-wrapper">
         <div className="search-flex">
@@ -124,7 +179,8 @@ class Search extends Component {
                 <p>Symptoms</p>
                 <input
                   name="symptoms"
-                  onChange={this.handleInputChange}
+                  onChange={this.handleInputChangeAdvanced}
+                  onFocus={this.handleInputFocus}
                   placeholder="type to filter options"
                   type="text"
                   value={this.state.searchInputs.symptoms}
@@ -135,7 +191,8 @@ class Search extends Component {
                 <p>Specialties</p>
                 <input
                   name="specialties"
-                  onChange={this.handleInputChange}
+                  onChange={this.handleInputChangeAdvanced}
+                  onFocus={this.handleInputFocus}
                   placeholder="type to filter options"
                   type="text"
                   value={this.state.searchInputs.specialties}
@@ -146,7 +203,8 @@ class Search extends Component {
                 <p>Insurance</p>
                 <input
                   name="insurance"
-                  onChange={this.handleInputChange}
+                  onChange={this.handleInputChangeAdvanced}
+                  onFocus={this.handleInputFocus}
                   placeholder="type to filter options"
                   type="text"
                   value={this.state.searchInputs.insurance}
@@ -170,11 +228,17 @@ class Search extends Component {
             this.state.showAdvancedOptions
               ? (
                 <div className="search-advanced-options">
+                  <div className="search-advanced-title">
+                    {this.state.advancedOptionChosen}
+                  </div>
                   {
                     this.state.advancedOptions[this.state.advancedOptionChosen].map( item => (
                       <div 
                         className="advanced-option-item"
                         key={item}
+                        name={item}
+                        onClick={event => this.handleAdvancedOption(event)}
+                        option={this.state.advancedOptionChosen}
                       >
                         {item}
                       </div>
