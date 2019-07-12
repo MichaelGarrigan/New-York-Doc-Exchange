@@ -14,14 +14,33 @@ const loadScript = url => {
 
 class Map extends Component {
 
-  componentDidMount() { this.renderMap(); }
+  componentDidMount() { this.clearOldScripts(); this.renderMap(); }
+
+  componentWillUnmount() { this.clearOldScripts(); }
 
   componentDidUpdate(prevProps) {
     if (prevProps.docData !== this.props.docData) {
+      this.clearOldScripts()
       this.renderMap();
     }
     if (prevProps.latLong !== this.props.latLong) {
+      this.clearOldScripts()
       this.renderMap();
+    }
+  }
+
+  clearOldScripts = () => {
+    let scripts = document.getElementsByTagName("head");
+    let head = scripts[0];
+    let children = head.childNodes;
+    
+    // console.log('children', children);
+    for (let node of children) {
+      // console.log(node.localName)
+      if (node.localName === 'script') {
+        console.log('deleted', node)
+        head.removeChild(node);
+      }
     }
   }
 
