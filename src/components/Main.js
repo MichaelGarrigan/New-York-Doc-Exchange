@@ -8,6 +8,7 @@ import fastTicker from '../server/helpers/ticker/ticker-1.js';
 import slowTicker from '../server/helpers/ticker/ticker-2.js';
 import Building from './svg/Building.js';
 import MagGlass from './svg/MagGlass.js';
+import ChartHeart from './svg/ChartHeart.js';
 
 
 const Main = props => {
@@ -133,7 +134,7 @@ const Main = props => {
       <section className="hero-lower">
         <div className="lower-title">Find the right Doctor</div>
         <div className="lower-wrapper">
-          <div className="lower-svg-chart-heart"></div>
+          <ChartHeart className="main-chartHeart-icon" />
 
           <Link to="/" className="link">
             <button className="lower-call-to-action">
