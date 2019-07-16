@@ -1,6 +1,7 @@
 
 @import "variables.less";
 
+
 .navbar-wrapper {
   align-items: center;
   background: @dkteal;
@@ -9,21 +10,22 @@
   height: 10vh;
   width: 100vw;
 
+  @media all and (max-width: @sizes[xs]) { flex-direction: column; height: 12vh; }
+
   .link-nav {
     align-items: center;
     color: @offwhite;
     cursor: pointer;
     display: flex;
-    font-family: 'Roboto', sans-serif;
     text-decoration: none;
 
     .nav-title {
       font-size: 4rem;
-    }
-    .nav-title-icon {
-      height: 5rem;
-      margin-left: 1rem;
-      width: 5rem;
+
+      @media all and (max-width: @sizes[large]) { font-size: 3.5rem; }
+      @media all and (max-width: @sizes[med]) { font-size: 3rem; }
+      @media all and (max-width: @sizes[sm]) { font-size: 2.2rem; }
+      @media all and (max-width: @sizes[xs]) { font-size: 1.8rem; }
     }
   }
 
@@ -32,15 +34,25 @@
     background: @blue;
     padding: 0.4rem 1rem;
 
+    @media all and (max-width: @sizes[sm]) { padding: 0.3rem 0.6rem; }
+
     .icon-search {
       fill: @offwhite;
-      height: 2rem;
-      width: 2rem;
+      height: 2.4rem;
+      width: 2.4rem;
+
+      @media all and (max-width: @sizes[med]) { height: 2.2rem; width: 2.2rem; }
+      @media all and (max-width: @sizes[sm]) { height: 1.8rem; width: 1.8rem; }
+      // @media all and (max-width: @sizes[xs]) { height: 1.4rem; width: 1.4rem; }
     }
 
     span {
-      font-size: 1.6rem;
+      font-size: 2rem;
       margin-left: 0.4rem;
+
+      @media all and (max-width: @sizes[med]) { font-size: 1.6rem; }
+      @media all and (max-width: @sizes[sm]) { font-size: 1.4rem; margin-left: 0.2rem;}
+      // @media all and (max-width: @sizes[xs]) { font-size: 1rem; }
     }
   }
 }
