@@ -10,7 +10,6 @@ const NavBar = () => (
 
       <Link to="/" className="link-nav">
         <div className="nav-title">New York Doc Exchange</div>
-        <ChartHeart className="nav-title-icon" />
       </Link>
 
       <Link 
