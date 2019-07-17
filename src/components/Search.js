@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -15,137 +15,122 @@ const optMap = {
   insurance: insuranceArray
 };
 
-class Search extends Component {
-  state = {
-    searchInputs: {
-      location: '',
-      symptoms: '',
-      specialties: '',
-      insurance: ''
-    },
-    showAdvancedOptions: false,
-    advancedOptionChosen: '',
-    advancedOptions: {
-      symptoms: symptomsArray,
-      specialties: specialtiesArray,
-      insurance: insuranceArray
-    }
-  }
+const Search = props => {
+  const [searchInputs, setSearchInputs] = useState({
+    location: '',
+    symptoms: '',
+    specialties: '',
+    insurance: ''
+  });
+  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
+  const [advancedOptionChosen, setAdvancedOptionChosen] = useState('');
+  const [advancedOptions, setAdvancedOptions] = useState({
+    symptoms: symptomsArray,
+    specialties: specialtiesArray,
+    insurance: insuranceArray
+  });
+  
 
-  filterOptions = (array, str) => {
+  // Reduces the array based on what the user is inputing
+  const filterOptions = (array, str) => {
     let re = new RegExp(`^${str}`, 'i');
     
     return array.filter( item => re.test(item) )
-  }
+  };
 
-  handleInputChange = event => {
+  // Used only with location input
+  const handleInputChange = event => {
     const name = event.target.name;
     const value = event.target.value;
     
-    this.setState( 
-      prevState => ({
-        searchInputs: {
-          ...prevState.searchInputs,
-          [name]: value
-        }
-      }));
-  }
-
-  handleInputChangeAdvanced = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    
-    this.setState( 
-      prevState => ({
-        searchInputs: {
-          ...prevState.searchInputs,
-          [name]: value
-        }
-      }), 
-      () => {
-        if (this.state.searchInputs[name].length > 0) {
-          this.setState(prevState => ({ 
-            advancedOptions: {
-              ...prevState.advancedOptions,
-              [name]: this.filterOptions(optMap[name], this.state.searchInputs[name])
-            }
-          }));
-        } else {
-          this.setState({ 
-            advancedOptions: {
-              symptoms: symptomsArray,
-              specialties: specialtiesArray,
-              insurance: insuranceArray
-            }
-          });
-        }
-      }
-    );
-  }
-
-  handleAdvancedOption = event => {
-    event.persist();
-    
-    const name = event.target.attributes.name.nodeValue;
-    const option = event.target.attributes.option.nodeValue;
-    console.log(name, option);
-    
-    this.setState(prevState => ({ 
-      searchInputs: {
-        ...prevState.searchInputs,
-        [option] : name
-      }
-    }));
-  }
-
-  handleInputFocus = event => {
-    const name = event.target.name;
-    
-    this.setState({ 
-      showAdvancedOptions: true,
-      advancedOptionChosen: event.target.name
+    setSearchInputs({
+      ...searchInputs,
+      [name]: value
     });
   }
 
-  submitSearchInputs = event => {
+  // Used with the 3 optional inputs
+  const handleInputChangeAdvanced = event => {
+    const name = event.target.name;
+    const value = event.target.value;
 
+    setSearchInputs({
+      ...searchInputs,
+      [name]: value
+    });
+
+    useEffect( () => {
+      if (searchInputs[name].length > 0) {
+        setAdvancedOptions({
+          ...advancedOptions,
+          [name]: filterOptions(optMap[name], searchInputs[name])
+        });
+      } else {
+        setAdvancedOptions({
+          advancedOptions: {
+            symptoms: symptomsArray,
+            specialties: specialtiesArray,
+            insurance: insuranceArray
+          }
+        })
+      }
+    }, [searchInputs] );
+  }
+    
+
+  const handleAdvancedOption = event => {
+    const name = event.target.attributes.name.nodeValue;
+    const option = event.target.attributes.option.nodeValue;
+    
+    setSearchInputs({
+      ...searchInputs,
+      [option] : name
+    });
+  }
+
+  const handleInputFocus = event => {
+    const name = event.target.name;
+    
+    setShowAdvancedOptions(true);
+    setAdvancedOptionChosen(name);
+  }
+
+  const submitSearchInputs = event => {
     // exchange user location input for lat/long coords
     let coords = [];
-    let loc = this.state.searchInputs.location || 'New York, NY';
+    let loc = searchInputs.location || 'New York, NY';
     axios.get('/location', { params: { location: loc } })
       .then( response => {
+        
         coords = response.data;
-        console.log('coords: ', coords)
+        
         if (coords) {
           axios.get(
             '/search', 
             { params: { 
-              ...this.state.searchInputs,
+              ...searchInputs,
               location: coords
               } 
             }
             )
             .then( response => {
-              console.log('/search response: ', response.data);
-              // save doctor data to state
-              this.props.setDocData(response.data);
-              // save lat_long to state
-              this.props.setLatLong(coords)
-              // set the view to main
-              this.props.setSpinner(false);
+              // console.log('/search response: ', response.data);
+              
+              props.setDocData(response.data);
+              props.setLatLong(coords)
+              props.setSpinner(false);
             })
             .catch( err => console.log(err));
 
             // reset state back to empty strings
-            this.setState({
-              searchInputs: {
+            setSearchInputs({
                 symptoms: '',
                 specialties: '',
                 insurance: '',
                 location: ''
-              }
             });
         } else {
+          console.log('no coords available')
           // coords is null 
           // handle by showing user an error message of no location found
           // and they should retry entering the location
@@ -155,7 +140,6 @@ class Search extends Component {
       
   }
 
-  render() {
     return (
       <div className="search-wrapper">
         <div className="search-flex">
@@ -166,10 +150,10 @@ class Search extends Component {
               <p>Location</p>
               <input
                 name="location"
-                onChange={this.handleInputChange}
+                onChange={handleInputChange}
                 placeholder="i.e. zip code, city, address"
                 type="text"
-                value={this.state.searchInputs.location}
+                value={searchInputs.location}
               />
             </div>
 
@@ -179,11 +163,11 @@ class Search extends Component {
                 <p>Symptoms</p>
                 <input
                   name="symptoms"
-                  onChange={this.handleInputChangeAdvanced}
-                  onFocus={this.handleInputFocus}
+                  onChange={handleInputChangeAdvanced}
+                  onFocus={handleInputFocus}
                   placeholder="type to filter options"
                   type="text"
-                  value={this.state.searchInputs.symptoms}
+                  value={searchInputs.symptoms}
                 />
               </div>
 
@@ -191,11 +175,11 @@ class Search extends Component {
                 <p>Specialties</p>
                 <input
                   name="specialties"
-                  onChange={this.handleInputChangeAdvanced}
-                  onFocus={this.handleInputFocus}
+                  onChange={handleInputChangeAdvanced}
+                  onFocus={handleInputFocus}
                   placeholder="type to filter options"
                   type="text"
-                  value={this.state.searchInputs.specialties}
+                  value={searchInputs.specialties}
                 />
               </div>
 
@@ -203,11 +187,11 @@ class Search extends Component {
                 <p>Insurance</p>
                 <input
                   name="insurance"
-                  onChange={this.handleInputChangeAdvanced}
-                  onFocus={this.handleInputFocus}
+                  onChange={handleInputChangeAdvanced}
+                  onFocus={handleInputFocus}
                   placeholder="type to filter options"
                   type="text"
-                  value={this.state.searchInputs.insurance}
+                  value={searchInputs.insurance}
                 />
               </div>
 
@@ -216,7 +200,7 @@ class Search extends Component {
             <Link to="/map">
               <button
                 className="search-apply-button"
-                onClick={event => this.submitSearchInputs(event)}
+                onClick={event => submitSearchInputs(event)}
               >
                 <span>Apply Search</span>
               </button>
@@ -225,20 +209,20 @@ class Search extends Component {
           </form>
 
           {
-            this.state.showAdvancedOptions
+            showAdvancedOptions
               ? (
                 <div className="search-advanced-options">
                   <div className="search-advanced-title">
-                    {this.state.advancedOptionChosen}
+                    {advancedOptionChosen}
                   </div>
                   {
-                    this.state.advancedOptions[this.state.advancedOptionChosen].map( item => (
+                    advancedOptions[advancedOptionChosen].map( item => (
                       <div 
                         className="advanced-option-item"
                         key={item}
                         name={item}
-                        onClick={event => this.handleAdvancedOption(event)}
-                        option={this.state.advancedOptionChosen}
+                        onClick={event => handleAdvancedOption(event)}
+                        option={advancedOptionChosen}
                       >
                         {item}
                       </div>
@@ -250,7 +234,6 @@ class Search extends Component {
         </div>
       </div>
     )
-  }
 }
 
 export default Search;
