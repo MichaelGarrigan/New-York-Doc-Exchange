@@ -1,7 +1,7 @@
 import React from 'react';
 import Cards from './Cards.js';
 
-import '../styles/SideBar.css';
+import '../styles/Body.less';
 
 const SideBar = props => (
     <div className="sidebar-wrapper">

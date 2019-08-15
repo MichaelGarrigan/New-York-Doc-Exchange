@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import Insurances from './Insurances.js';
-import '../styles/Cards.less';
+
+import '../styles/Body.less';
 
 const Cards = ({ data, className }) => {
   const [moreDetails, setMoreDetails] = useState(false);

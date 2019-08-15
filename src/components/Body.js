@@ -3,8 +3,7 @@ import React from 'react';
 import SideBar from './SideBar.js';
 import Map from './Map.js';
 
-import '../styles/Body.css';
-
+import '../styles/Body.less';
 
 const Body = props => {
   return (

@@ -1,6 +1,0 @@
-
-.body-wrapper {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  height: 90vh;
-}

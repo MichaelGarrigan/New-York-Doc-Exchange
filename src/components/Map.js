@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { API_KEY_MAP } from '../server/helpers/config.js';
 
-import '../styles/Map.css';
+import '../styles/Body.less';
 
 const loadScript = url => {
   const firstScript = window.document.getElementsByTagName("script")[0];
@@ -13,7 +13,6 @@ const loadScript = url => {
 }
 
 class Map extends Component {
-
   componentDidMount() { this.clearOldScripts(); this.renderMap(); }
 
   componentWillUnmount() { this.clearOldScripts(); }
@@ -63,6 +62,7 @@ class Map extends Component {
 
     // generate array of markers
     this.props.docData.map( (data, index) => {
+      console.log('markers, ', data)
       let marker = new window.google.maps.Marker({
         key: data.npi,
         index: index,

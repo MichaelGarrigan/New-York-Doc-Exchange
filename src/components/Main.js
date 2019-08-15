@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import '../styles/Main.less';
+import MagGlass from './svg/MagGlass.js';
 import Ticker from './Ticker.js';
+
 import fastTicker from '../server/helpers/ticker/ticker-1.js';
 import slowTicker from '../server/helpers/ticker/ticker-2.js';
-import Building from './svg/Building.js';
-import MagGlass from './svg/MagGlass.js';
-import ChartHeart from './svg/ChartHeart.js';
 
+import '../styles/Main.less';
 
 const Main = props => {
 
@@ -55,38 +54,38 @@ const Main = props => {
     <main>
 
       <section className="upper">
-       
-          <div className="upper-grid">
-            <div className="upper-grid-ticker">
-              <Ticker tickerData={fastTicker}/>
-              <Ticker tickerData={slowTicker}/>
-            </div>
-      
-            <Building />
-            
-            <div className="upper-grid-cta">
-              <div className="upper-grid-cta-wrapper">
-                <input 
-                  className="upper-grid-cta-input" 
-                  min='10000' 
-                  max='99999'
-                  onChange={e => setZipCode(e.target.value) }
+        <div className="upper-flex">
 
-                  placeholder='Enter a Zip Code'
-                  type='number'
-                  value={zipCode}
-                />
-                <Link to="/map">
-                  <div
-                    onClick={ e => submitZipCode(e) }
-                  >
-                    <MagGlass className="upper-grid-svg-search" />
-                  </ div>
-                </Link>
-              </div>
-            </div>
-            
+          <div className="upper-ticker-wrapper">
+            <Ticker tickerData={fastTicker}/>
+            <Ticker tickerData={slowTicker}/>
           </div>
+
+          <div className="upper-building-wrapper"></div>
+
+          <div className="upper-cta-wrapper">
+            <div className="upper-grid-cta-wrapper">
+              <input 
+                className="upper-grid-cta-input" 
+                min='10000' 
+                max='99999'
+                onChange={e => setZipCode(e.target.value) }
+
+                placeholder='Enter a Zip Code'
+                type='number'
+                value={zipCode}
+              />
+              <Link to="/map">
+                <div onClick={ e => submitZipCode(e) } >
+                  <MagGlass className="upper-grid-svg-search" />
+                </ div>
+              </Link>
+            </div>
+          </div>
+            
+        </div>
+            
+         
       </section>
 
       <section className="hero-middle">
@@ -100,7 +99,7 @@ const Main = props => {
               </div>
             </div>
             <div className="circle-text">
-              Intuitive advanced searching by symptoms, specialists, insurances or language.
+              Advanced searching by symptoms, specialists or insurances
             </div>
           </div>
 
@@ -112,7 +111,7 @@ const Main = props => {
               </div>
             </div>
             <div className="circle-text">
-              Utilizing data from the powerful Better Doctor API.
+              Powered by the Better Doctor API
             </div>
           </div>
 
@@ -124,7 +123,7 @@ const Main = props => {
               </div>
             </div>
             <div className="circle-text">
-              Find the right doctor and send the details and directions to you phone or email.
+              Send the details and directions right to you phone or email.
             </div>
           </div>
 
@@ -132,9 +131,11 @@ const Main = props => {
       </section>
 
       <section className="hero-lower">
-        <div className="lower-title">Find the right Doctor</div>
+    
         <div className="lower-wrapper">
-          <ChartHeart className="main-chartHeart-icon" />
+          <div className="lower-title">
+            You Deserve to Feel Great
+          </div>
 
           <Link to="/" className="link">
             <button className="lower-call-to-action">

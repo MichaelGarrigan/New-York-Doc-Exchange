@@ -12,14 +12,17 @@ import Spinner from './components/Spinner.js';
 
 const App = () => {
 
+  const [clickedDoc, setClickedDoc] = useState('');
+  const [dimensions, setDimensions] = useState({width: 960, height: 500});
   const [docData, setDocData] = useState('');
   const [latLong, setLatLong] = useState([40.730610, -73.935242]);
-  const [clickedDoc, setClickedDoc] = useState('');
+  const [node, setNode] = useState(null);
   const [spinner, setSpinner] = useState(true);
+  
 
   return (
     <BrowserRouter>
-      <div className="app-wrapper">
+      <div className="app-wrapper" >
         <NavBar />
         
         <Switch>

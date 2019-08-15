@@ -2,7 +2,7 @@ import React from 'react';
 
 import MedIcon from './svg/medical.js';
 import DenIcon from './svg/dental.js';
-import '../styles/Insurances.less';
+import '../styles/Body.less';
 
 // alphabetically sort insurances (mutates 'list')
 const sortArray = list => {
