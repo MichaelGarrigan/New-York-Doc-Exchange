@@ -6,12 +6,12 @@ export default {
   items: [
     {
       key: 211,
-      text: 'Find the right doctor',
+      text: 'NYDE -- ^ 4.6%',
       color: '#a3c708'
     },
     {
       key: 212,
-      text: 'Find the right doctor',
+      text: 'BCBS -- ^ 2.4%',
       color: '#f9f9f9'
     },
     {

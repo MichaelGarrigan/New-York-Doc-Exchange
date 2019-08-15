@@ -6,17 +6,17 @@ export default {
   items: [
     {
       key: 111,
-      text: 'Find the right doctor',
+      text: 'Find the right doctor, right now.',
       color: '#a3c708'
     },
     {
       key: 112,
-      text: 'Find the right doctor',
+      text: 'Better Health is one click away.',
       color: '#f9f9f9'
     },
     {
       key: 113,
-      text: 'Find the right doctor',
+      text: 'Servers are standing by to help you.',
       color: 'rgb(250, 147, 12)'
     }
   ]
