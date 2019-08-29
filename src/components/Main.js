@@ -71,7 +71,7 @@ const Main = props => {
                 max='99999'
                 onChange={e => setZipCode(e.target.value) }
 
-                placeholder='Enter a Zip Code'
+                placeholder='Enter a Zip Code ...'
                 type='number'
                 value={zipCode}
               />
