@@ -6,12 +6,11 @@
   background: linear-gradient(@dkteal, @dkblue);
   display: flex;
   justify-content: center;
-  height: 90vh;
+  height: 80vh;
   width: 100vw;
 
   .search-flex {
     align-items: center;
-    background: fade(@offwhite, 10%);
     border-radius: 1rem;
     display: flex;
     justify-content: space-around;
@@ -29,16 +28,22 @@
   
       .optional-input-wrapper {
         align-items: center;
-        border: 2px solid orangered;
+        border: 1px dashed orange;
         border-radius: 1rem;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
+        padding: 1rem;
+
+        .optional-input-optional {
+          color: orange;
+          font-size: 14px;
+        }
       }
     }
 
     .search-advanced-options {
-      background: rgba(0, 0, 0, 0.9);
+      background: #333;
       height: 95%;
       overflow: scroll;
       width: 30%;
@@ -46,11 +51,15 @@
       .search-advanced-title {
         border-bottom: 1px solid orange;
         color: white;
+        font-size: 1.2rem;
+        padding: 1rem 0;
+        text-align: center;
       }
 
       .advanced-option-item {
         background: rgba(46, 46, 46, 0.9);
         color: white;
+        padding: 0.2rem 0.5rem;
       }
     }
   }
@@ -58,6 +67,7 @@
 
 .search-input-wrapper {
   align-items: center;
+  background: linear-gradient(to bottom, @blue, #8bd6f1);
   border-radius: @buttonRadius;
   box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.3);
   display: flex;
@@ -65,6 +75,7 @@
   padding: 1rem;
 
   p {
+    color: #333;
     font-size: 1.5rem;
     padding: 0 1rem;
   }

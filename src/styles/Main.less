@@ -23,21 +23,21 @@
   background: @dkgray;
   display: flex;
   flex-direction: column;
-  height: 30%;
+  height: 25%;
   overflow: hidden;
   position: absolute;
   left: 0;
   right: 0;
-  top: 28%
+  top: 25%
 }
 .upper-building-wrapper {
   background: url('/svg/building-shadow.svg');
   background-repeat: no-repeat;
-  background-size: cover;
-  height: 80%;
+  background-size: contain;
+  height: 70%;
   position: absolute;
-  right: 0;
-  width: 35%;
+  right: -5%;
+  // width: 25%;
 }
       
 .upper-cta-wrapper {
@@ -45,8 +45,9 @@
   background-image: linear-gradient(to left, orangered, @orange);
   padding: .6rem;
   position: absolute;
-  left: 5%;
-  bottom: 18%;
+  left: 10%;
+  bottom: 5%;
+  z-index: 10;
 }
 .upper-grid-cta-wrapper {
   align-items: center;
@@ -85,6 +86,99 @@
     position: absolute;
     width: 80%;
     bottom: 20%;
+  }
+}
+
+
+// =============
+//    Ticker 
+// =============
+
+
+* { box-sizing: border-box; }
+
+@font-face {
+  font-family: 'TickerFont';
+  src: url('/RideFader.ttf')
+}
+
+@duration: 40s;
+
+@-webkit-keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+.fast-ticker {
+  top: 0;
+}
+
+.slow-ticker {
+  bottom: 0;
+}
+
+.ticker-wrap {
+  
+  position: absolute;
+  
+  
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  height: 50%;
+  background-color: rgba(#000, 0.9); 
+  padding-left: 30%;
+  box-sizing: content-box;
+
+  .ticker {
+
+    display: inline-block;
+    height: 100%;
+    // line-height: 5vw;  
+    white-space: nowrap;
+    padding-right: -70%;
+    box-sizing: content-box;
+
+    -webkit-animation-iteration-count: infinite; 
+            animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+   -webkit-animation-name: ticker;
+           animation-name: ticker;
+    -webkit-animation-duration: @duration;
+            animation-duration: @duration;
+
+    &__item {
+
+      display: inline-block;
+
+      padding: 0 2rem;
+      font-family: 'TickerFont', Courier, monospace;
+      font-size: 4rem;
+      // color: white;   
+
+    }
   }
 }
 
@@ -214,96 +308,4 @@
   height: 30vw;
   // padding: 1vw;
   width: 30vw;
-}
-
-// =============
-//    Ticker 
-// =============
-
-
-* { box-sizing: border-box; }
-
-@font-face {
-  font-family: 'TickerFont';
-  src: url('/RideFader.ttf')
-}
-
-@duration: 40s;
-
-@-webkit-keyframes ticker {
-  0% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    visibility: visible;
-  }
-
-  100% {
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-  }
-}
-
-@keyframes ticker {
-  0% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    visibility: visible;
-  }
-
-  100% {
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-  }
-}
-.fast-ticker {
-  top: 0;
-}
-
-.slow-ticker {
-  bottom: 0;
-}
-
-.ticker-wrap {
-  
-  position: absolute;
-  
-  
-  left: 0;
-  right: 0;
-  width: 100%;
-  overflow: hidden;
-  height: 50%;
-  background-color: rgba(#000, 0.9); 
-  padding-left: 30%;
-  box-sizing: content-box;
-
-  .ticker {
-
-    display: inline-block;
-    height: 100%;
-    // line-height: 5vw;  
-    white-space: nowrap;
-    padding-right: -70%;
-    box-sizing: content-box;
-
-    -webkit-animation-iteration-count: infinite; 
-            animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-            animation-timing-function: linear;
-   -webkit-animation-name: ticker;
-           animation-name: ticker;
-    -webkit-animation-duration: @duration;
-            animation-duration: @duration;
-
-    &__item {
-
-      display: inline-block;
-
-      padding: 0 2rem;
-      font-family: 'TickerFont', Courier, monospace;
-      font-size: 4.5rem;
-      // color: white;   
-
-    }
-  }
 }

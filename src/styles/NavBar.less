@@ -3,32 +3,40 @@
 
 
 .navbar-wrapper {
-  align-items: center;
-  background: @dkteal;
-  display: flex;
-  justify-content: space-around;
+  background-image: linear-gradient(to left, orangered, @orange);
   height: 15vh;
   width: 100vw;
 
   @media all and (max-width: @sizes[xs]) { flex-direction: column; height: 12vh; }
 
-  .link-nav {
+  .navbar-blue {
     align-items: center;
-    color: @offwhite;
-    cursor: pointer;
+    background: @dkteal;
     display: flex;
-    text-decoration: none;
+    justify-content: space-around;
+    height: 15vh;
+    width: 100vw;
 
-    .nav-title {
-      font-size: 4rem;
-      // font-size: 5vw;
-
-      @media all and (max-width: @sizes[large]) { font-size: 3.5rem; }
-      @media all and (max-width: @sizes[med]) { font-size: 3rem; }
-      @media all and (max-width: @sizes[sm]) { font-size: 2.2rem; }
-      @media all and (max-width: @sizes[xs]) { font-size: 1.8rem; }
+    .link-nav {
+      align-items: center;
+      color: @offwhite;
+      cursor: pointer;
+      display: flex;
+      text-decoration: none;
+  
+      .nav-title {
+        font-size: 4rem;
+        // font-size: 5vw;
+  
+        @media all and (max-width: @sizes[large]) { font-size: 3.5rem; }
+        @media all and (max-width: @sizes[med]) { font-size: 3rem; }
+        @media all and (max-width: @sizes[sm]) { font-size: 2.2rem; }
+        @media all and (max-width: @sizes[xs]) { font-size: 1.8rem; }
+      }
     }
   }
+
+
 
   .link-nav-search {
     #mixin-button();
