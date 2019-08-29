@@ -60,25 +60,46 @@ class Map extends Component {
         }
     );
 
-    // generate array of markers
-    this.props.docData.map( (data, index) => {
-      console.log('markers, ', data)
-      let marker = new window.google.maps.Marker({
-        key: data.npi,
-        index: index,
-        title: data.profile.slug,
-        animation: window.google.maps.Animation.DROP,
-        value: index,
-        map: map,
-        position: {
-          lat: data.practices[0].lat,
-          lng: data.practices[0].lon
-        }
-      });
-      marker.addListener('click', () => this.props.setClickedDoc(marker.index))
-      return marker;
+    let markers = [];
+    let infoWindows = [];
+
+    // Generate array of Markers and stagger the drop animation
+    this.props.docData.forEach( (data, index) => {
+
+      infoWindows.push(
+        new window.google.maps.InfoWindow({
+          content: `
+          <div className="map-infowindow">
+            <p className="map-infowindow-p">${data.profile.slug}</p>
+            <img src=${data.profile.image_url} />
+          </div>`
+        })
+      )
+
+      window.setTimeout( () => {
+        let marker = new window.google.maps.Marker({
+          key: data.npi,
+          index: index,
+          title: data.profile.slug,
+          animation: window.google.maps.Animation.DROP,
+          value: index,
+          map: map,
+          position: {
+            lat: data.practices[0].lat,
+            lng: data.practices[0].lon
+          }
+        });
+  
+        marker.setLabel(`${index + 1}`);
+        marker.addListener('click', () => this.props.setClickedDoc(marker.index));
+        marker.addListener('mouseover', () => infoWindows[index].open(map, marker));
+        marker.addListener('mouseout', () => infoWindows[index].close());
+
+        markers.push(marker);
+
+      }, 
+      index * 100); // staggers the marker drop
     })
-    
   }
 
   render() {
