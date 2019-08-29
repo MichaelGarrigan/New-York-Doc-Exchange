@@ -1,7 +1,7 @@
 
 
 export default {
-  speed: '50s',
+  speed: '40s',
   speedName: 'slow-ticker',
   items: [
     {

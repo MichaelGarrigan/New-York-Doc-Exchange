@@ -16,7 +16,7 @@ export default {
     },
     {
       key: 113,
-      text: 'Servers are standing by to help you.',
+      text: 'Servers are standing by to help you :)',
       color: 'rgb(250, 147, 12)'
     }
   ]
