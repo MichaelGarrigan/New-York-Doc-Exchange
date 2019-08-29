@@ -2,7 +2,7 @@
 import React from 'react';
 import '../styles/Main.less';
 
-const Ticker = ({ tickerData }) => (
+export default ({ tickerData }) => (
   <div className={`ticker-wrap ${tickerData.speedName}`}>
     <div className="ticker" style={{animationDuration: tickerData.speed}}>
       {
@@ -17,9 +17,6 @@ const Ticker = ({ tickerData }) => (
     </div>
 </div>
 )
-
-export default Ticker;
-
 
 // <p>The difficulty with CSS was getting the animation to transform the entire items 100% yet include an offset that was only the width of the browser (and not the items full width).</p>
 // <p>Setting the start of the animation to anything less than zero (e.g. -100%) is unreliable as it is based on the items width, and may not offset the full width of the browser or creates too large an offset</p>
