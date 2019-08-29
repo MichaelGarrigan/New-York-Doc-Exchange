@@ -158,7 +158,7 @@ const Search = props => {
             </div>
 
             <div className="optional-input-wrapper">
-
+              <p className="optional-input-optional">Optional</p>
               <div className="search-input-wrapper">
                 <p>Symptoms</p>
                 <input
