@@ -41,10 +41,10 @@ const Cards = ({ data, className }) => {
               <div className="card-show-more">
 
                 <div className="doctor-lower-categories">  
-                  <p className="doctor-p">{`NPI: ${data.npi}`}</p>
+                  <p className="doctor-p">{`NPI # ${data.npi}`}</p>
                 </div>
 
-                <div className="doctor-lower-categories">
+                <div className="doctor-lower-location-category">
                   <h2 className="doctor-h2">Locations</h2>
                   {
                     data.practices.length > 0
@@ -58,13 +58,14 @@ const Cards = ({ data, className }) => {
                               <p className="doctor-p">
                                 {loc.name}
                               </p>
+                              <br />
                               <p className="doctor-p">
                                 {loc.visit_address.street}
                               </p>
                               <p className="doctor-p">
                                 {`${loc.visit_address.city} ${loc.visit_address.state}, ${loc.visit_address.zip}`}
                               </p>
-                
+                              <br />
                               {
                                 loc.phones.length > 0 
                                   ? (
@@ -76,6 +77,7 @@ const Cards = ({ data, className }) => {
                                     )
                                   : "No Phone Number Provided"
                               }
+                              <br />
                               <p className="doctor-p">
                                 {
                                   loc.accepts_new_patients
