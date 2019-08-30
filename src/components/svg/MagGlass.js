@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MagGlass = ({ className }) => (
+export default ({ className }) => (
   <svg 
     className={className}
     viewBox="0 0 25 25"
@@ -12,5 +12,3 @@ const MagGlass = ({ className }) => (
     />
   </svg>
 );
-
-export default MagGlass;

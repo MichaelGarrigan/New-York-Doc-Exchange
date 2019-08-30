@@ -57,7 +57,7 @@ const consolidateInsurances = list => {
 };
 
 
-const Insurances = ({ insurances }) => {
+export default ({ insurances }) => {
   // verify insurances is not empty array
   if ( insurances.length === 0) {
     return "No Insurance Accepted";
@@ -92,5 +92,3 @@ const Insurances = ({ insurances }) => {
     )
   )
 };
-
-export default Insurances;

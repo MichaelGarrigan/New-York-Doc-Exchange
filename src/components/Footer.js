@@ -3,7 +3,7 @@ import React from 'react';
 
 import "../styles/Footer.less";
 
-const Footer = () => (
+export default () => (
   <div className="footer-wrapper">
     <a href="#">
       <p>Proudly Made By Michael Garrigan</p>
@@ -19,5 +19,3 @@ const Footer = () => (
     </a>
   </div>
 );
-
-export default Footer;

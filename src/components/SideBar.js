@@ -3,7 +3,7 @@ import Cards from './Cards.js';
 
 import '../styles/Body.less';
 
-const SideBar = props => (
+export default props => (
     <div className="sidebar-wrapper">
       {
         props.clickedDoc
@@ -33,5 +33,3 @@ const SideBar = props => (
       }
     </div>
 );
-
-export default SideBar;

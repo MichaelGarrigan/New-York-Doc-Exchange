@@ -4,7 +4,7 @@ import Insurances from './Insurances.js';
 
 import '../styles/Body.less';
 
-const Cards = ({ data, className }) => {
+export default ({ data, className }) => {
   const [moreDetails, setMoreDetails] = useState(false);
 
   return (
@@ -102,6 +102,4 @@ const Cards = ({ data, className }) => {
       }
     </div>
   );
-}
-
-export default Cards;
+};

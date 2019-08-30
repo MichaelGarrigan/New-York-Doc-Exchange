@@ -5,7 +5,7 @@ import Map from './Map.js';
 
 import '../styles/Body.less';
 
-const Body = props => {
+export default props => {
   return (
     <main className="body-wrapper">
 
@@ -22,5 +22,3 @@ const Body = props => {
     </main>
   )
 };
-
-export default Body;
