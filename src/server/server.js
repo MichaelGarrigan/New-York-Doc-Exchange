@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 // Controllers
-const { dataController } = require('./controllers/dataController.js');
 const { locationController } = require('./controllers/locationController.js');
 const { searchController } = require('./controllers/searchController.js');
 
@@ -13,7 +12,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('public'));
 
 // routes 
-app.use('/data', dataController);
 app.use('/location', locationController);
 app.use('/search', searchController);
 
