@@ -6,25 +6,35 @@ import axios from 'axios';
 import { symptomsArray } from '../server/helpers/data/symptoms.js';
 import { specialtiesArray } from '../server/helpers/data/specialties.js';
 import { insuranceArray } from '../server/helpers/data/insurances.js';
+import addIndexProperty from './utils/addIndexProperty.js';
 
 import '../styles/Search.less';
 
-const optMap = {
+const arrayMap = {
   symptoms: symptomsArray,
   specialties: specialtiesArray,
   insurance: insuranceArray
 };
 
-const Search = props => {
-  const [searchInputs, setSearchInputs] = useState({
-    location: '',
+export default props => {
+  const [locationInput, setLocationInput] = useState('');
+
+  const [optionalInputs, setOptionalInputs] = useState({
     symptoms: '',
     specialties: '',
     insurance: ''
   });
-  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
-  const [advancedOptionChosen, setAdvancedOptionChosen] = useState('');
-  const [advancedOptions, setAdvancedOptions] = useState({
+
+  const [optionalInputsBool, setOptionalInputsBool] = useState({
+    symptoms: false,
+    specialties: false,
+    insurance: false
+  });
+
+  const [showOptionalArray, setShowOptionalArray] = useState(false);
+  const [optionalInputChosen, setOptionalInputChosen] = useState('');
+
+  const [optionalInputArray, setOptionalInputArray] = useState({
     symptoms: symptomsArray,
     specialties: specialtiesArray,
     insurance: insuranceArray
@@ -38,97 +48,92 @@ const Search = props => {
     return array.filter( item => re.test(item) )
   };
 
-  // Used only with location input
-  const handleInputChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    
-    setSearchInputs({
-      ...searchInputs,
-      [name]: value
-    });
-  }
-
-  // Used with the 3 optional inputs
-  const handleInputChangeAdvanced = event => {
+  // Optional Input Handlers
+  const handleOptionalChange = event => {
     const name = event.target.name;
     const value = event.target.value;
 
-    setSearchInputs({
-      ...searchInputs,
+    setOptionalInputs({
+      ...optionalInputs,
       [name]: value
     });
 
-    useEffect( () => {
-      if (searchInputs[name].length > 0) {
-        setAdvancedOptions({
-          ...advancedOptions,
-          [name]: filterOptions(optMap[name], searchInputs[name])
-        });
-      } else {
-        setAdvancedOptions({
-          advancedOptions: {
-            symptoms: symptomsArray,
-            specialties: specialtiesArray,
-            insurance: insuranceArray
-          }
-        })
-      }
-    }, [searchInputs] );
-  }
-    
-
-  const handleAdvancedOption = event => {
-    const name = event.target.attributes.name.nodeValue;
-    const option = event.target.attributes.option.nodeValue;
-    
-    setSearchInputs({
-      ...searchInputs,
-      [option] : name
+    setOptionalInputsBool({
+      ...optionalInputsBool,
+      [name] : false
     });
-  }
+
+    if (value.length > 0) {
+      setOptionalInputArray({
+        ...optionalInputArray,
+        [name]: filterOptions(arrayMap[name], value)
+      });
+    } else {
+      setOptionalInputArray({
+        symptoms: symptomsArray,
+        specialties: specialtiesArray,
+        insurance: insuranceArray
+      })
+    }
+  };
+
+  const handleLocationFocus = event => {
+    setShowOptionalArray(false);
+    setOptionalInputChosen('');
+  };
 
   const handleInputFocus = event => {
     const name = event.target.name;
     
-    setShowAdvancedOptions(true);
-    setAdvancedOptionChosen(name);
-  }
+    setShowOptionalArray(true);
+    setOptionalInputChosen(name);
+  };
+  
+  const handleOptionalInputPreselect = (event, category) => {
+    const name = event.target.attributes.name.nodeValue;
+    const option = event.target.attributes.option.nodeValue;
+    console.log('pre: ', name, option)
+    setOptionalInputs({
+      ...optionalInputs,
+      [option] : name
+    });
+
+    setOptionalInputsBool({
+      ...optionalInputsBool,
+      [option] : true
+    });
+  };
 
   const submitSearchInputs = event => {
     // exchange user location input for lat/long coords
     let coords = [];
-    let loc = searchInputs.location || 'New York, NY';
+    let loc = locationInput || 'New York, NY';
     axios.get('/location', { params: { location: loc } })
       .then( response => {
-        
         coords = response.data;
         
         if (coords) {
           axios.get(
             '/search', 
-            { params: { 
-              ...searchInputs,
-              location: coords
-              } 
-            }
-            )
-            .then( response => {
-              // console.log('/search response: ', response.data);
-              
-              props.setDocData(response.data);
-              props.setLatLong(coords)
-              props.setSpinner(false);
-            })
-            .catch( err => console.log(err));
+            { params: { ...optionalInputs, location: coords } }
+          )
+          .then( response => {
+            let data = [...response.data];
+            addIndexProperty(data);
+            
+            props.setDocData(data);
+            props.setLatLong(coords)
+            props.setSpinner(false);
+          })
+          .catch( err => console.log(err));
 
-            // reset state back to empty strings
-            setSearchInputs({
-                symptoms: '',
-                specialties: '',
-                insurance: '',
-                location: ''
-            });
+          // reset state back to empty strings
+          setLocationInput('');
+          setOptionalInputs({
+              symptoms: '',
+              specialties: '',
+              insurance: ''
+          });
         } else {
           console.log('no coords available')
           // coords is null 
@@ -150,48 +155,64 @@ const Search = props => {
               <p>Location</p>
               <input
                 name="location"
-                onChange={handleInputChange}
+                onChange={e => setLocationInput(e.target.value)}
+                onFocus={handleLocationFocus}
                 placeholder="i.e. zip code, city, address"
                 type="text"
-                value={searchInputs.location}
+                value={locationInput}
               />
             </div>
 
             <div className="optional-input-wrapper">
               <p className="optional-input-optional">Optional</p>
-              <div className="search-input-wrapper">
+              <div className={
+                optionalInputsBool.symptoms 
+                  ? "search-input-wrapper-true" 
+                  : "search-input-wrapper"
+                }
+              >
                 <p>Symptoms</p>
                 <input
                   name="symptoms"
-                  onChange={handleInputChangeAdvanced}
+                  onChange={handleOptionalChange}
                   onFocus={handleInputFocus}
                   placeholder="type to filter options"
                   type="text"
-                  value={searchInputs.symptoms}
+                  value={optionalInputs.symptoms}
                 />
               </div>
 
-              <div className="search-input-wrapper">
+              <div className={
+                optionalInputsBool.specialties 
+                  ? "search-input-wrapper-true" 
+                  : "search-input-wrapper"
+                }
+              >
                 <p>Specialties</p>
                 <input
                   name="specialties"
-                  onChange={handleInputChangeAdvanced}
+                  onChange={handleOptionalChange}
                   onFocus={handleInputFocus}
                   placeholder="type to filter options"
                   type="text"
-                  value={searchInputs.specialties}
+                  value={optionalInputs.specialties}
                 />
               </div>
 
-              <div className="search-input-wrapper">
+              <div className={
+                optionalInputsBool.insurance 
+                  ? "search-input-wrapper-true" 
+                  : "search-input-wrapper"
+                }
+              >
                 <p>Insurance</p>
                 <input
                   name="insurance"
-                  onChange={handleInputChangeAdvanced}
+                  onChange={handleOptionalChange}
                   onFocus={handleInputFocus}
                   placeholder="type to filter options"
                   type="text"
-                  value={searchInputs.insurance}
+                  value={optionalInputs.insurance}
                 />
               </div>
 
@@ -209,20 +230,20 @@ const Search = props => {
           </form>
 
           {
-            showAdvancedOptions
+            showOptionalArray
               ? (
                 <div className="search-advanced-options">
                   <div className="search-advanced-title">
-                    {advancedOptionChosen}
+                    {optionalInputChosen}
                   </div>
                   {
-                    advancedOptions[advancedOptionChosen].map( item => (
+                    optionalInputArray[optionalInputChosen].map( item => (
                       <div 
                         className="advanced-option-item"
                         key={item}
                         name={item}
-                        onClick={event => handleAdvancedOption(event)}
-                        option={advancedOptionChosen}
+                        onClick={handleOptionalInputPreselect}
+                        option={optionalInputChosen}
                       >
                         {item}
                       </div>
@@ -234,6 +255,4 @@ const Search = props => {
         </div>
       </div>
     )
-}
-
-export default Search;
+};
