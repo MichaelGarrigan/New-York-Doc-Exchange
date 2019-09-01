@@ -13,9 +13,10 @@
     align-items: center;
     border-radius: 1rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     height: 100%;
     padding: 2rem;
+    width: 100%;
 
     .search-form {
       align-items: center;
@@ -24,7 +25,7 @@
       flex-wrap: nowrap;
       height: 100%;
       justify-content: space-evenly;
-      width: 60%;
+      width: 50%;
   
       .optional-input-wrapper {
         align-items: center;
@@ -64,10 +65,30 @@
     }
   }
 }
+.search-input-wrapper-true {
+  align-items: center;
+  background: linear-gradient(to bottom, rgb(81, 243, 81), rgb(193, 245, 193));
+  border-radius: @buttonRadius;
+  box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.3);
+  display: flex;
+  margin: 1rem 0;
+  padding: 1rem;
 
+  p {
+    color: #333;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+  }
+  input {
+    border-radius: @buttonRadius;
+    font-size: 1.2rem;
+    padding: .5rem 1rem;
+    width: 20rem;
+  }
+}
 .search-input-wrapper {
   align-items: center;
-  background: linear-gradient(to bottom, @blue, #8bd6f1);
+  background: linear-gradient(to bottom, @blue, #7dd0ee);
   border-radius: @buttonRadius;
   box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.3);
   display: flex;
