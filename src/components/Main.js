@@ -5,12 +5,13 @@ import axios from 'axios';
 import MagGlass from './svg/MagGlass.js';
 import Ticker from './Ticker.js';
 
+import addIndexProperty from './utils/addIndexProperty.js';
 import fastTicker from '../server/helpers/ticker/ticker-1.js';
 import slowTicker from '../server/helpers/ticker/ticker-2.js';
 
 import '../styles/Main.less';
 
-const Main = props => {
+export default props => {
 
   const [zipCode, setZipCode] = useState('');
 
@@ -21,17 +22,18 @@ const Main = props => {
     axios.get('/location', { params: { location: zipCode } })
       .then( response => {
         coords = response.data;
-        console.log('coords: ', coords)
+        
         if (coords) {
           axios.get(
             '/search', 
             { params: { location: coords } }
             )
             .then( response => {
-              console.log('/search response: ', response.data);
+              let data = [...response.data];
+              addIndexProperty(data);
 
               // save to state
-              props.setDocData(response.data);
+              props.setDocData(data);
               props.setLatLong(coords);
             })
             .catch( err => console.log(err));
@@ -142,10 +144,9 @@ const Main = props => {
               Search Now
             </button>
           </Link>
+
         </div>
       </section>
     </main>
   );
-}
-
-export default Main;
+};
