@@ -124,16 +124,28 @@ export default props => {
             props.setDocData(data);
             props.setLatLong(coords)
             props.setSpinner(false);
-          })
-          .catch( err => console.log(err));
 
-          // reset state back to empty strings
-          setLocationInput('');
-          setOptionalInputs({
-              symptoms: '',
-              specialties: '',
-              insurance: ''
+            // reset state back to empty strings
+            setLocationInput('');
+            setOptionalInputs({
+                symptoms: '',
+                specialties: '',
+                insurance: ''
+            });
+          })
+          .catch( err => {
+            console.log(err);
+
+            // reset state back to empty strings
+            setLocationInput('');
+            setOptionalInputs({
+                symptoms: '',
+                specialties: '',
+                insurance: ''
+            });
           });
+
+          
         } else {
           console.log('no coords available')
           // coords is null 
@@ -221,7 +233,7 @@ export default props => {
             <Link to="/map">
               <button
                 className="search-apply-button"
-                onClick={event => submitSearchInputs(event)}
+                onClick={submitSearchInputs}
               >
                 <span>Apply Search</span>
               </button>
