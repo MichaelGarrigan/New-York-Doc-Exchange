@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import useElementDimensions from './components/utils/elementDimensions.js';
+
 import Body from './components/Body.js';
 import Footer from './components/Footer.js';
 import Main from './components/Main.js';
@@ -12,18 +14,22 @@ import Spinner from './components/Spinner.js';
 
 const App = () => {
 
+  let { sizeRef, dimensions } = useElementDimensions();
+
   const [clickedDoc, setClickedDoc] = useState('');
-  const [dimensions, setDimensions] = useState({width: 960, height: 500});
   const [docData, setDocData] = useState('');
   const [latLong, setLatLong] = useState([40.730610, -73.935242]);
   const [node, setNode] = useState(null);
   const [spinner, setSpinner] = useState(true);
+  const [mapHasRenderedOnce, setMapHasRenderedOnce] = useState(false);
   
 
   return (
     <BrowserRouter>
-      <div className="app-wrapper" >
-        <NavBar />
+      <div style={{width: '100vw'}} ref={sizeRef}>
+        <NavBar 
+          dimensions={dimensions}
+        />
         
         <Switch>
           <Route exact path="/" render={
@@ -57,7 +63,9 @@ const App = () => {
                     docData={docData}
                     clickedDoc={clickedDoc}
                     latLong={latLong}
+                    mapHasRenderedOnce={mapHasRenderedOnce}
 
+                    setMapHasRenderedOnce={setMapHasRenderedOnce}
                     setClickedDoc={setClickedDoc}
                   />
                 ) 
