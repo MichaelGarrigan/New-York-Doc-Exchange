@@ -15,6 +15,7 @@ export default ({ data, className }) => {
         <div className="doctor-name-wrapper">
           <div className="doctor-name">{`${data.profile.first_name} ${data.profile.last_name}`}</div> 
           <div className="doctor-title">{data.profile.title ? `, ${data.profile.title}` : ''}</div>
+          <div>{data.index}</div>
         </div>
 
         <div className="doctor-avatar-and-button">
