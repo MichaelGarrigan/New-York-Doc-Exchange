@@ -17,6 +17,9 @@ export default props => {
       <Map 
         docData={props.docData} 
         latLong={props.latLong}
+        mapHasRenderedOnce={props.mapHasRenderedOnce}
+
+        setMapHasRenderedOnce={props.setMapHasRenderedOnce}
         setClickedDoc={props.setClickedDoc}
       />
     </main>
