@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+
+import React, { useEffect, useLayoutEffect } from 'react';
 import { API_KEY_MAP } from '../server/helpers/config.js';
 
 import '../styles/Body.less';
@@ -12,49 +13,30 @@ const loadScript = url => {
   firstScript.parentNode.insertBefore(script, firstScript);
 }
 
-class Map extends Component {
-  componentDidMount() { this.clearOldScripts(); this.renderMap(); }
-
-  componentWillUnmount() { this.clearOldScripts(); }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.docData !== this.props.docData) {
-      this.clearOldScripts()
-      this.renderMap();
+export default props => {
+  
+  useEffect( () => {
+    if (props.mapHasRenderedOnce === false) {
+      renderMap();
+      props.setMapHasRenderedOnce(true);
+    } else {
+      initMap();
     }
-    if (prevProps.latLong !== this.props.latLong) {
-      this.clearOldScripts()
-      this.renderMap();
-    }
-  }
+  }, [props.latLong[0], props.latLong[1]]);
 
-  clearOldScripts = () => {
-    let scripts = document.getElementsByTagName("head");
-    let head = scripts[0];
-    let children = head.childNodes;
-    
-    // console.log('children', children);
-    for (let node of children) {
-      // console.log(node.localName)
-      if (node.localName === 'script') {
-        console.log('deleted', node)
-        head.removeChild(node);
-      }
-    }
-  }
 
-  renderMap = () => {
+  const renderMap = () => {
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${API_KEY_MAP}&callback=initMap`);
-    window.initMap = this.initMap;
-  }
+    window.initMap = initMap;
+  };
 
-  initMap = () => {
+  const initMap = () => {
     let map = new window.google.maps.Map(
         document.getElementById('map-google'), 
         { 
           center: {
-            lat: this.props.latLong[0], 
-            lng: this.props.latLong[1]
+            lat: props.latLong[0], 
+            lng: props.latLong[1]
           },
           zoom: 12
         }
@@ -64,7 +46,7 @@ class Map extends Component {
     let infoWindows = [];
 
     // Generate array of Markers and stagger the drop animation
-    this.props.docData.forEach( (data, index) => {
+    props.docData.forEach( (data, index) => {
 
       infoWindows.push(
         new window.google.maps.InfoWindow({
@@ -90,8 +72,8 @@ class Map extends Component {
           }
         });
   
-        marker.setLabel(`${index + 1}`);
-        marker.addListener('click', () => this.props.setClickedDoc(marker.index));
+        marker.setLabel(`${data.index}`);
+        marker.addListener('click', () => props.setClickedDoc(marker.index));
         marker.addListener('mouseover', () => infoWindows[index].open(map, marker));
         marker.addListener('mouseout', () => infoWindows[index].close());
 
@@ -100,16 +82,11 @@ class Map extends Component {
       }, 
       index * 100); // staggers the marker drop
     })
-  }
+  };
 
-  render() {
-    return (
-      <div className="map-wrapper">
-        <div id="map-google"></div>
-      </div>
-    )
-  }
-  
-}
-
-export default Map;
+  return (
+    <div className="map-wrapper">
+      <div id="map-google"></div>
+    </div>
+  );
+};
