@@ -1,99 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import Building from './svg/Building.js';
 import MagGlass from './svg/MagGlass.js';
 import Ticker from './Ticker.js';
 
-import addIndexProperty from './utils/addIndexProperty.js';
-import fastTicker from '../server/helpers/ticker/ticker-1.js';
-import slowTicker from '../server/helpers/ticker/ticker-2.js';
+import ticker from '../server/tickerText.js';
 
 import '../styles/Main.less';
 
-export default props => {
+const { fastTicker, slowTicker } = ticker;
 
-  const [zipCode, setZipCode] = useState('');
-
-  const submitZipCode = event => {
-
-    // exchange user location input for lat/long coords
-    let coords = [];
-    axios.get('/location', { params: { location: zipCode } })
-      .then( response => {
-        coords = response.data;
-        
-        if (coords) {
-          axios.get(
-            '/search', 
-            { params: { location: coords } }
-            )
-            .then( response => {
-              let data = [...response.data];
-              addIndexProperty(data);
-
-              // save to state
-              props.setDocData(data);
-              props.setLatLong(coords);
-            })
-            .catch( err => console.log(err));
-
-            setZipCode('');
-            // stop spinner
-            props.setSpinner(false);
-        } else {
-          // coords is null 
-          // handle by showing user an error message of no location found
-          // and they should retry entering the location
-        }
-      })
-      .catch( err => console.log(err));
-      
-  }
-
+export default ({ height, width }) => {
   
   return (
-    <main>
+    <main className="main-wrapper">
 
       <section className="upper">
-        <div className="upper-flex">
 
-          <div className="upper-ticker-wrapper">
-            <Ticker tickerData={fastTicker}/>
-            <Ticker tickerData={slowTicker}/>
-          </div>
+        <div className="upper-ticker-wrapper">
+          <Ticker tickerData={fastTicker}/>
+          <Ticker tickerData={slowTicker}/>
+        </div>
 
-          <div className="upper-building-wrapper"></div>
+        <Building 
+          height={Math.round(width * 0.4)}
+          width={Math.round(width * 0.4)}
+        />
 
-          <div className="upper-cta-wrapper">
-            <div className="upper-grid-cta-wrapper">
-              <input 
-                className="upper-grid-cta-input" 
-                min='10000' 
-                max='99999'
-                onChange={e => setZipCode(e.target.value) }
+        <div className="upper-search-wrapper">
 
-                placeholder='Enter a Zip Code ...'
-                type='number'
-                value={zipCode}
-              />
-              <Link to="/map">
-                <div onClick={ e => submitZipCode(e) } >
-                  <MagGlass className="upper-grid-svg-search" />
-                </ div>
-              </Link>
-            </div>
-          </div>
-            
+          <Link 
+            to="/search" 
+            className="upper-search"
+          >
+            <MagGlass 
+              className="icon-search" 
+            />
+            <p>Search</p>
+          </Link>
+
         </div>
             
-         
       </section>
 
       <section className="hero-middle">
         <div className="flex-circles-center">
 
-          <div className="circles-wrapper">
+          <div className="circles-wrapper circles-wrapper-briefcase">
             <div className="circle-outline">
               <div 
                 className="circle-icon icon-briefcase"
@@ -105,7 +60,7 @@ export default props => {
             </div>
           </div>
 
-          <div className="circles-wrapper">
+          <div className="circles-wrapper circles-wrapper-stethoscope">
             <div className="circle-outline">
               <div 
                 className="circle-icon icon-stethoscope"
@@ -117,7 +72,7 @@ export default props => {
             </div>
           </div>
 
-          <div className="circles-wrapper">
+          <div className="circles-wrapper circles-wrapper-cloud-upload">
             <div className="circle-outline">
               <div 
                 className="circle-icon icon-cloud-upload"
@@ -133,19 +88,13 @@ export default props => {
       </section>
 
       <section className="hero-lower">
-    
-        <div className="lower-wrapper">
-          <div className="lower-title">
-            You Deserve to Feel Great
-          </div>
 
-          <Link to="/" className="link">
+          <Link to="/search" className="lower-link">
             <button className="lower-call-to-action">
-              Search Now
+              Search Now !!
             </button>
           </Link>
 
-        </div>
       </section>
     </main>
   );
