@@ -1,13 +1,12 @@
 
 import React from 'react';
 
-export default props => (
-  
+export default ({className, height, width}) => (
   <svg 
-    width={props.width} 
-    height={props.height} 
+    width={width} 
+    height={height} 
     version="1.1"
-    className={props.className} 
+    className={className} 
     viewBox="0 0 264.58333 26.458334" 
     xmlns="http://www.w3.org/2000/svg" 
   >

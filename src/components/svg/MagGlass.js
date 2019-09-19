@@ -1,8 +1,10 @@
 import React from 'react';
 
-export default ({ className }) => (
+export default ({ className, height, width }) => (
   <svg 
     className={className}
+    height={height}
+    width={width}
     viewBox="0 0 25 25"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg" 
