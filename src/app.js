@@ -14,70 +14,72 @@ import Spinner from './components/Spinner.js';
 
 const App = () => {
 
-  let { sizeRef, dimensions } = useElementDimensions();
-
   const [clickedDoc, setClickedDoc] = useState('');
   const [docData, setDocData] = useState('');
   const [latLong, setLatLong] = useState([40.730610, -73.935242]);
   const [node, setNode] = useState(null);
   const [spinner, setSpinner] = useState(true);
   const [mapHasRenderedOnce, setMapHasRenderedOnce] = useState(false);
-  
+
+  let { sizeRef, dimensions } = useElementDimensions();
 
   return (
     <BrowserRouter>
-      <div style={{width: '100vw'}} ref={sizeRef}>
-        <NavBar 
-          dimensions={dimensions}
-        />
+      <div ref={sizeRef}>
+        <div style={{ width: dimensions.width }}>
         
-        <Switch>
-          <Route exact path="/" render={
-            () => (
-              <Main 
-                setClickedDoc={setClickedDoc}
-                setDocData={setDocData}
-                setLatLong={setLatLong}
-                setSpinner={setSpinner}
-              />
-            )} 
-          />
+          <NavBar width={dimensions.width} />
+          
+          <Switch>
+            <Route exact path="/" render={
+              () => (
+                <Main 
+                  
+                  width={dimensions.width}
 
-          <Route path="/search" render={
-            () => (
-              <Search 
-                setClickedDoc={setClickedDoc}
-                setDocData={setDocData}
-                setLatLong={setLatLong}
-                setSpinner={setSpinner}
-              />
-            )} 
-          />
+                  setClickedDoc={setClickedDoc}
+                  setDocData={setDocData}
+                  setLatLong={setLatLong}
+                  setSpinner={setSpinner}
+                />
+              )} 
+            />
 
-          <Route path="/map" render={
-            () => (
-              spinner 
-                ? <Spinner />
-                : (
-                  <Body 
-                    docData={docData}
-                    clickedDoc={clickedDoc}
-                    latLong={latLong}
-                    mapHasRenderedOnce={mapHasRenderedOnce}
+            <Route path="/search" render={
+              () => (
+                <Search 
+                  setClickedDoc={setClickedDoc}
+                  setDocData={setDocData}
+                  setLatLong={setLatLong}
+                  setSpinner={setSpinner}
+                />
+              )} 
+            />
 
-                    setMapHasRenderedOnce={setMapHasRenderedOnce}
-                    setClickedDoc={setClickedDoc}
-                  />
-                ) 
-            )} 
-          />
-        </Switch>
+            <Route path="/map" render={
+              () => (
+                spinner 
+                  ? <Spinner />
+                  : (
+                    <Body 
+                      docData={docData}
+                      clickedDoc={clickedDoc}
+                      latLong={latLong}
+                      mapHasRenderedOnce={mapHasRenderedOnce}
 
-        <Footer />
+                      setMapHasRenderedOnce={setMapHasRenderedOnce}
+                      setClickedDoc={setClickedDoc}
+                    />
+                  ) 
+              )} 
+            />
+          </Switch>
 
+          <Footer />
+        </div>
       </div>
     </BrowserRouter>
-  )
-}
+  );
+};
 
 ReactDOM.render(<App />, document.getElementById('app'));
