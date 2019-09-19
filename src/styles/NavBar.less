@@ -1,22 +1,12 @@
 
 @import "variables.less";
-// @media all and (max-width: @sizes[xs]) { flex-direction: column; height: 12vh; }
-
-  // .navbar-blue {
-  //   align-items: center;
-  //   background: @dkteal;
-  //   display: flex;
-  //   justify-content: space-around;
-  //   height: 15vh;
-  //   width: 100vw;
-
 
 .navbar-wrapper {
   align-items: center;
   background: @dkteal;
   display: flex;
-  justify-content: space-evenly;
-  height: 10vw;
+  justify-content: center;
+  padding: 2vw 0;
   width: 100vw;
 
     .link-nav {
@@ -27,57 +17,9 @@
       text-decoration: none;
 
       .icon-nydefulltitle g g path {
-        fill: rgba(12, 250, 230, 0.418);
+        fill: @blue;
         stroke: @offwhite;
+        stroke-width: 0.2;
       }
     }
-  
-    .nav-title {
-      background: url('/svg/nyde_full.svg');
-      background-repeat: no-repeat;
-      background-size: cover;
-      border: none;
-      
-      cursor: pointer;
-      height: 8vw;
-      stroke: @offwhite;
-      width: 80vw;
-
-      // font-size: 4rem;
-      // font-size: 5vw;
-
-      @media all and (max-width: @sizes[large]) { font-size: 3.5rem; }
-      @media all and (max-width: @sizes[med]) { font-size: 3rem; }
-      @media all and (max-width: @sizes[sm]) { font-size: 2.2rem; }
-      @media all and (max-width: @sizes[xs]) { font-size: 1.8rem; }
-    }
-
-
-
-  .link-nav-search {
-    #mixin-button();
-    background: @blue;
-    padding: 0.4rem 1rem;
-
-    @media all and (max-width: @sizes[sm]) { padding: 0.3rem 0.6rem; }
-
-    .icon-search {
-      fill: @offwhite;
-      height: 2.4rem;
-      width: 2.4rem;
-
-      @media all and (max-width: @sizes[med]) { height: 2.2rem; width: 2.2rem; }
-      @media all and (max-width: @sizes[sm]) { height: 1.8rem; width: 1.8rem; }
-      // @media all and (max-width: @sizes[xs]) { height: 1.4rem; width: 1.4rem; }
-    }
-
-    span {
-      font-size: 2rem;
-      margin-left: 0.4rem;
-
-      @media all and (max-width: @sizes[med]) { font-size: 1.6rem; }
-      @media all and (max-width: @sizes[sm]) { font-size: 1.4rem; margin-left: 0.2rem;}
-      // @media all and (max-width: @sizes[xs]) { font-size: 1rem; }
-    }
-  }
 }
