@@ -3,7 +3,20 @@
 
 .footer-wrapper {
   background: @dkblue;
+  border-top: 2px solid gold;
   color: @offwhite;
+  margin-top: -20px;
   text-align: center;
-  width: 100vw;
+
+  a {
+    color: @offwhite;
+    font-size: 2.5vw;
+    margin: 10px;
+    text-decoration: none;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .footer-wrapper a {
+    font-size: 25px;
+  }
 }

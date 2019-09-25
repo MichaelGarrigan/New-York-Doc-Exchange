@@ -2,7 +2,7 @@
 @import "variables.less";
 
 .main-wrapper {
-  width: 100vw;
+  width: 100%;
 }
 
 // =============
@@ -13,19 +13,19 @@
   background: linear-gradient(@dkteal, @dkblue);
   position: relative;
   height: 70vw;
-  width: 100vw;
+  width: 100%;
 }
 
 .upper-ticker-wrapper {
   background: @dkgray;
   display: flex;
   flex-direction: column;
-  height: 16vw;
+  height: 15vw;
   overflow: hidden;
   position: absolute;
   left: 0;
   right: 0;
-  top: 30%
+  top: 30%;
 }
 
 .upper-building-wrapper {
@@ -38,10 +38,11 @@
 .upper-search-wrapper {
   #mixin-button();
   background-image: linear-gradient(to left, orangered, @orange);
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.75);
   position: absolute;
   left: 15%;
   bottom: 4%;
-  width: 50vw;
+  width: 40vw;
   z-index: 10;
 }
 
@@ -58,16 +59,17 @@
   .icon-search {
     display: inline-block;
     fill: @dkteal;
-    height: 10vw;
+    // height: 10vw;
     stroke: @offwhite;
     stroke-width: 0.2;
-    width: 10vw;
+    width: 20%;
   }
 
   p {
     color: @dkteal;
     display: inline-block;
-    font-size: 8vw;
+    font-size: 7vw;
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
   }
 }
 
@@ -159,13 +161,19 @@
 // large desktop
 @media screen and (min-width: 1000px) {
   .upper {
-    height: 60vw;
+    height: 700px;
   }
   .upper-ticker-wrapper {
-    top: 27%;
+    height: 150px;
   }
-  .upper-building-wrapper {
-    top: 5%;
+  .ticker-wrap .ticker__item {
+    font-size: 60px;
+  }
+  .upper-search-wrapper {
+    width: 400px;
+  }
+  .upper-search p {
+    font-size: 70px;
   }
 }
 // landscape mode
@@ -212,11 +220,11 @@
   align-items: center;
   display: flex;
   justify-content: space-evenly;
-  width: 100vw;
+  width: 100%;
 }
 .circles-wrapper {
   text-align: center;
-  width: 28vw;
+  width: 25vw;
 }
 .circles-wrapper-briefcase {
   margin-top: 20vw;
@@ -234,10 +242,10 @@
   border-radius: 50%;
   display: flex;
   fill: @dkteal;
-  height: 28vw;
+  height: 25vw;
   justify-content: center;
   margin: 2vw auto;
-  width: 28vw;
+  width: 25vw;
 }
 .icon-briefcase {
   background: url('/svg/briefcase-medical.svg');
@@ -271,6 +279,43 @@
   width: 85%;
 }
 
+@media screen and (min-width: 1000px) {
+  .hero-middle {
+    height: 850px;
+    margin: -120px 0 0;
+  }
+  .circles-wrapper {
+    width: 250px;
+  }
+  .circle-outline {
+    height: 250px;
+    margin: 20px auto;
+    width: 250px;
+  }
+  .circle-text {
+    font-size: 30px;
+    margin: 20px auto;
+  }
+  .circles-wrapper-briefcase {
+    margin-top: 200px;
+  }
+  .circles-wrapper-stethoscope {
+    margin-top: -50px;
+  }
+  .circles-wrapper-cloud-upload {
+    margin-top: -150px;
+  }
+  .icon-briefcase {
+    margin: -20px 0 0 0;
+  }
+  .icon-stethoscope {
+    margin: 10px 0 0 10px;
+  }
+  .icon-cloud-upload {
+    margin: -10px 0 0 0;
+  }
+}
+
 // =============
 // Lower Section 
 // =============
@@ -278,15 +323,17 @@
 .hero-lower {
   background: url('/svg/nyc_skyline2.svg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  border-bottom: 2px solid gold;
   height: 75vw;
   margin-top: -15vw;
   position: relative;
-  width: 100vw;
+  width: 100%;
 }
 .lower-link {
   #mixin-button();
   bottom: 60%;
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.75);
   left: 35%;
   position: absolute;
   text-decoration: none;
@@ -301,4 +348,16 @@
   font-size: 4vw;
   height: 10vw;
   width: 30vw;
+}
+
+@media screen and (min-width: 1000px) {
+  .hero-lower {
+    height: 710px;
+    margin-top: -150px;
+  }
+  .lower-call-to-action {
+    font-size: 40px;
+    height: 100px;
+    width: 300px;
+  }
 }

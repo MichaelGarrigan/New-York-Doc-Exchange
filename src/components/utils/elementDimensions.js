@@ -16,9 +16,15 @@ export default () => {
       const measure = () =>
         window.requestAnimationFrame(() => {
           let {width, height} = node.getBoundingClientRect();
+
+          let maxWidth1000 = width > 1000 ? 1000 : width;
+
+          console.log('w:', width, maxWidth1000)
+
           setDimensions({ 
-            width: Math.round(width), 
-            height: Math.round(height) 
+            width: Math.round(maxWidth1000), 
+            height: Math.round(height),
+            // maxWidth1000: Math.round(maxWidth1000) 
           })
         });
       

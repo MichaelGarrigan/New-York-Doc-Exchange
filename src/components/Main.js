@@ -17,7 +17,10 @@ export default ({ height, width }) => {
   return (
     <main className="main-wrapper">
 
-      <section className="upper">
+      <section 
+        className="upper"
+        style={{height: Math.round(width * 0.7)}}
+      >
 
         <div className="upper-ticker-wrapper">
           <Ticker tickerData={fastTicker}/>
