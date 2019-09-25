@@ -11,6 +11,7 @@ import NavBar from './components/NavBar.js';
 import Search from './components/Search.js';
 import Spinner from './components/Spinner.js';
 
+import './styles/App.less';
 
 const App = () => {
 
@@ -25,9 +26,12 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div ref={sizeRef}>
+      <div 
+        ref={sizeRef}
+        className="app-wrapper"
+      >
         <div style={{ width: dimensions.width }}>
-        
+
           <NavBar width={dimensions.width} />
           
           <Switch>
