@@ -3,19 +3,35 @@
 
 .footer-wrapper {
   background: @dkblue;
-  border-top: 2px solid gold;
   color: @offwhite;
-  margin-top: -20px;
+  margin-top: -5vw;
   text-align: center;
 
-  a {
-    color: @offwhite;
-    font-size: 2.5vw;
-    margin: 10px;
-    text-decoration: none;
+  .footer-links {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    a:first-of-type {
+      
+      padding-top: 5vw;
+    }
+
+    a {
+      color: @offwhite;
+      display: inline-block;
+      font-size: 2.5vw;
+      margin: 10px;
+      text-decoration: none;
+    }
   }
 }
 @media screen and (min-width: 1000px) {
+  .footer-wrapper {
+    border-top: 2px solid gold;
+    margin-top: -5vw;
+  }
   .footer-wrapper a {
     font-size: 25px;
   }

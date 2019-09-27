@@ -159,112 +159,111 @@ export default props => {
 
     return (
       <div className="search-wrapper">
-        <div className="search-flex">
 
-          <form className="search-form">
+        <form className="search-form">
           
-            <div className="search-input-wrapper">
-              <p>Location</p>
+          <div className="search-input-wrapper">
+            <p>Location</p>
+            <input
+              name="location"
+              onChange={e => setLocationInput(e.target.value)}
+              onFocus={handleLocationFocus}
+              placeholder="i.e. zip code, city, address"
+              type="text"
+              value={locationInput}
+            />
+          </div>
+
+          <p className="optional-input-optional">Optional</p>
+
+          <div className="optional-input-wrapper">
+            <div className={
+              optionalInputsBool.symptoms 
+                ? "search-input-wrapper-true" 
+                : "search-input-wrapper"
+              }
+            >
+              <p>Symptoms</p>
               <input
-                name="location"
-                onChange={e => setLocationInput(e.target.value)}
-                onFocus={handleLocationFocus}
-                placeholder="i.e. zip code, city, address"
+                name="symptoms"
+                onChange={handleOptionalChange}
+                onFocus={handleInputFocus}
+                placeholder="type to filter options"
                 type="text"
-                value={locationInput}
+                value={optionalInputs.symptoms}
               />
             </div>
 
-            <div className="optional-input-wrapper">
-              <p className="optional-input-optional">Optional</p>
-              <div className={
-                optionalInputsBool.symptoms 
-                  ? "search-input-wrapper-true" 
-                  : "search-input-wrapper"
-                }
-              >
-                <p>Symptoms</p>
-                <input
-                  name="symptoms"
-                  onChange={handleOptionalChange}
-                  onFocus={handleInputFocus}
-                  placeholder="type to filter options"
-                  type="text"
-                  value={optionalInputs.symptoms}
-                />
-              </div>
-
-              <div className={
-                optionalInputsBool.specialties 
-                  ? "search-input-wrapper-true" 
-                  : "search-input-wrapper"
-                }
-              >
-                <p>Specialties</p>
-                <input
-                  name="specialties"
-                  onChange={handleOptionalChange}
-                  onFocus={handleInputFocus}
-                  placeholder="type to filter options"
-                  type="text"
-                  value={optionalInputs.specialties}
-                />
-              </div>
-
-              <div className={
-                optionalInputsBool.insurance 
-                  ? "search-input-wrapper-true" 
-                  : "search-input-wrapper"
-                }
-              >
-                <p>Insurance</p>
-                <input
-                  name="insurance"
-                  onChange={handleOptionalChange}
-                  onFocus={handleInputFocus}
-                  placeholder="type to filter options"
-                  type="text"
-                  value={optionalInputs.insurance}
-                />
-              </div>
-
+            <div className={
+              optionalInputsBool.specialties 
+                ? "search-input-wrapper-true" 
+                : "search-input-wrapper"
+              }
+            >
+              <p>Specialties</p>
+              <input
+                name="specialties"
+                onChange={handleOptionalChange}
+                onFocus={handleInputFocus}
+                placeholder="type to filter options"
+                type="text"
+                value={optionalInputs.specialties}
+              />
             </div>
 
-            <Link to="/map">
-              <button
-                className="search-apply-button"
-                onClick={submitSearchInputs}
-              >
-                <span>Apply Search</span>
-              </button>
-            </Link>
-            
-          </form>
+            <div className={
+              optionalInputsBool.insurance 
+                ? "search-input-wrapper-true" 
+                : "search-input-wrapper"
+              }
+            >
+              <p>Insurance</p>
+              <input
+                name="insurance"
+                onChange={handleOptionalChange}
+                onFocus={handleInputFocus}
+                placeholder="type to filter options"
+                type="text"
+                value={optionalInputs.insurance}
+              />
+            </div>
 
-          {
-            showOptionalArray
-              ? (
-                <div className="search-advanced-options">
-                  <div className="search-advanced-title">
-                    {optionalInputChosen}
-                  </div>
-                  {
-                    optionalInputArray[optionalInputChosen].map( item => (
-                      <div 
-                        className="advanced-option-item"
-                        key={item}
-                        name={item}
-                        onClick={handleOptionalInputPreselect}
-                        option={optionalInputChosen}
-                      >
-                        {item}
-                      </div>
-                    ))
-                  }
+          </div>
+
+          <Link to="/map">
+            <button
+              className="search-apply-button"
+              onClick={submitSearchInputs}
+            >
+              <span>Apply Search</span>
+            </button>
+          </Link>
+            
+        </form>
+
+        {
+          showOptionalArray
+            ? (
+              <div className="search-advanced-options">
+                <div className="search-advanced-title">
+                  {optionalInputChosen}
                 </div>
-              ) : ""
-          }
-        </div>
+                {
+                  optionalInputArray[optionalInputChosen].map( item => (
+                    <div 
+                      className="advanced-option-item"
+                      key={item}
+                      name={item}
+                      onClick={handleOptionalInputPreselect}
+                      option={optionalInputChosen}
+                    >
+                      {item}
+                    </div>
+                  ))
+                }
+              </div>
+            ) : ""
+        }
       </div>
-    )
+    );
 };
