@@ -230,7 +230,7 @@ export default props => {
 
           </div>
 
-          <Link to="/map">
+          <Link to="/map" className="search-anchor-button">
             <button
               className="search-apply-button"
               onClick={submitSearchInputs}

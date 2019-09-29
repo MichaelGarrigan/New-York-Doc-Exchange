@@ -74,8 +74,10 @@ export default ({ insurances }) => {
             {item.name}
           </div>
           {
-            item.plans.map( plan => (
-              <div className="insurance-plan-flex" key={plan.name}>
+            item.plans.map( (plan, idx) => (
+              <div 
+                className="insurance-plan-flex" 
+                key={plan.name + idx}>
                 {
                   plan.category === 'medical'
                     ? <MedIcon />

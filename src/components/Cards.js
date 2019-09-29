@@ -15,7 +15,6 @@ export default ({ data, className }) => {
         <div className="doctor-name-wrapper">
           <div className="doctor-name">{`${data.profile.first_name} ${data.profile.last_name}`}</div> 
           <div className="doctor-title">{data.profile.title ? `, ${data.profile.title}` : ''}</div>
-          <div>{data.index}</div>
         </div>
 
         <div className="doctor-avatar-and-button">
@@ -24,16 +23,23 @@ export default ({ data, className }) => {
             style={{backgroundImage: `url('${data.profile.image_url}')`}}
           ></div>
 
-          <button 
-            className="doctor-show-more-button"
-            onClick={() => setMoreDetails(!moreDetails)}
-          >
-            {
-              moreDetails
-                ? 'Less Details' 
-                : 'More Details'
-            }
-          </button>
+          <div className="doctor-show-more-button-wrapper">
+
+            <div className="doctor-index">
+              {`# ${data.index}`}
+            </div>
+
+            <button 
+              className="doctor-show-more-button"
+              onClick={() => setMoreDetails(!moreDetails)}
+            >
+              {
+                moreDetails
+                  ? 'Less Details' 
+                  : 'More Details'
+              }
+            </button>
+          </div>
         </div>
       </div>
       {

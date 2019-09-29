@@ -1,6 +1,7 @@
 
 @import "variables.less";
 
+
 /* ===============
       Body
 ================ */
@@ -30,22 +31,22 @@
 
 .card-wrapper {
   background: @offwhite;
-  border-radius: 1rem;
+  border-radius: 2vw;
   box-shadow: 5px 10px 10px #535353;
-  margin: 20px 0;
-  width: 95%;
+  margin: 2vw 0;
+  width: 90%;
 }
 
 .card-wrapper-clicked {
   background: @offwhite;
-  border-radius: 1rem;
+  border-radius: 2vw;
   box-shadow: 0px 0px 15px 2px rgb(247, 215, 77);
-  margin: 20px 0;
+  margin: 2vw 0;
   width: 95%;
 
   .doctor-upper-section {
     background: lighten(@dkteal, 10%);
-    border-radius: 1rem;
+    border-radius: 2vw;
     padding: 0 0 1rem;
   }
 }
@@ -53,9 +54,9 @@
 /* Card Upper Section */
 .doctor-upper-section {
   background: lighten(@dkteal, 10%);
-  border-radius: 1rem;
+  border-radius: 2vw;
   box-shadow: 5px 5px 5px #535353;
-  padding: 0 0 1rem;
+  padding: 0 0 2vw;
 }
 
 .doctor-name-wrapper {
@@ -66,11 +67,11 @@
 
   .doctor-name {
     font-size: 2.5vw;
-    padding: 1rem 0;
+    padding: 1.5vw 0;
   }
   .doctor-title {
     font-size: 2.5vw;
-    padding: 1rem 0;
+    padding: 1.5vw 0;
   }
 }
 
@@ -78,58 +79,79 @@
   align-items: center;
   display: flex;
   justify-content: space-evenly;
-  padding-bottom: 1rem 0;
 
   .doctor-avatar {
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 50%;
-    height: 9vw;
-    width: 9vw;
+    height: 10vw;
+    width: 10vw;
   }
 
-  .doctor-show-more-button {
-    background: rgb(182, 24, 79);
-    border: none;
-    border-radius: 3rem;
-    color: @offwhite;
-    font-size: 1.4vw;
-    padding: 1rem;
+  .doctor-show-more-button-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    .doctor-index {
+      background: lightsteelblue;
+      border: none;
+      border-radius: 2.5vw;
+      color: #333;
+      font-size: 2.2vw;
+      margin: 1.4vw;
+      padding: 0.5vw 1.2vw;
+    }
+
+    .doctor-show-more-button {
+      background: rgb(182, 24, 79);
+      border: none;
+      border-radius: 2.5vw;
+      color: @offwhite;
+      cursor: pointer;
+      font-size: 2.2vw;
+      padding: 1vw;
+    }
   }
+
 }
 
 /* Card Lower Section */
 .card-show-more {
   background: @offwhite;
-  border-radius: 0 0 1rem 1rem;
+  border-radius: 0 0 2vw 2vw;
   color: @dkgray;
   font-size: 2vw;
   text-align: center;
 
   .doctor-lower-categories  {
     margin: 0 auto;
-    padding: 1rem 0;
+    padding: 1vw 0;
     width: 95%;
 
     .doctor-h2 {
-      font-size: 2rem;
+      font-size: 3.5vw;
     }
     
     .doctor-p {
-      font-size: 1.5rem;
-      margin: 5px 0;
+      font-size: 2vw;
+      margin: 0.5vw 0;
     }
   }
   .doctor-lower-location-category  {
     border-bottom: 5px dotted rgb(206, 126, 34);
     border-top: 5px dotted rgb(206, 126, 34);
     margin: 0 auto;
-    padding: 1rem 0;
+    padding: 1vw 0;
     width: 95%;
+
+    .doctor-h2 {
+      font-size: 3.5vw;
+    }
   }
   .doctor-location-details {
-    // background: darken(@offwhite, 5%);
-    padding: .5rem;
+    padding: 1vw;
   }
 }
 
@@ -138,28 +160,29 @@
 ================ */
 
 .insurance-wrapper {
-  border: 0.5px solid @blue;
-  border-radius: 1rem;
+  background: rgba(0, 255, 255, 0.2);
+  border: 0.5px solid gold;
+  border-radius: 2vw;
   color: @dkgray;
-  margin: 1rem auto;
+  margin: 1vw auto;
   width: 90%;
 
   .insurance-provider {
-    // background: lighten(@blue, 50%);
-    border-bottom: 0.5px solid @blue;
-    border-radius: 1rem 1rem 0 0;
-    font-size: 2rem;
-    padding: .5rem 0;
+    background: rgba(0, 255, 255, 0.5);
+    border-bottom: 0.5px solid gold;
+    border-radius: 2vw 2vw 0 0;
+    font-size: 2vw;
+    padding: .5vw;
   }
 
   .insurance-plan-flex {
     align-items: center;
     display: flex;
-    justify-content: flex-start;
-    margin: 0.5rem auto;
+    justify-content: space-evenly;
+    margin: 1vw auto;
 
     .insurance-plan-name {
-      font-size: 1.2rem;
+      font-size: 2vw;
     }
   }
 }
@@ -167,13 +190,11 @@
 /* icon start */
 .med-icon {
   fill: rgb(182, 24, 79);
-  margin: 0 .5rem;
-  height: 2rem;
+  height: 3vw;
 }
 .den-icon {
-  fill: @gray;
-  margin: 0 .5rem;
-  height: 2rem;
+  fill: lightslategray;
+  height: 3vw;
 }
 
 /* ===============
