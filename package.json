@@ -14,10 +14,10 @@
   "name": "New-York-Doc-Exchange",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon --exec babel-node src/server/server.js",
-    "webpack": "webpack --watch",
-    "build_dev": "webpack --mode development --watch",
-    "build_prod": "webpack --mode production"
+    "start": "node src/server/server.js",
+    "build": "webpack --mode production",
+    "start_dev": "nodemon --exec babel-node src/server/server.js",
+    "build_dev": "webpack --mode development --watch"
   },
   "main": "public",
   "repository": "https://github.com/M-garrigan/New-York-Doc-Exchange.git",

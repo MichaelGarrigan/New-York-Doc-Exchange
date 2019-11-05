@@ -1,7 +1,7 @@
 
-import axios from 'axios';
-import { DOC_KEY } from '../helpers/config.js';
- 
+const axios = require('axios');
+const { DOC_KEY } = require('../helpers/config.js');
+
 module.exports = {
   searchController: (req, res) => {
     const [ lat, long ] = [ ...req.query.location ];
